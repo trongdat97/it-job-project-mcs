@@ -9,14 +9,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="account-service" />
         <module name="eureka-server" />
-        <module name="job-service" />
-        <module name="image-service" />
         <module name="zuul-server" />
+        <module name="image-service" />
         <module name="gallery-service" />
+        <module name="api-gateway" />
+        <module name="job-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="account-service" target="1.8" />
+      <module name="api-gateway" target="1.8" />
       <module name="eureka-server" target="1.8" />
       <module name="gallery-service" target="1.8" />
       <module name="image-service" target="1.8" />
@@ -27,6 +29,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gallery-service" options="-parameters" />
       <module name="image-service" options="-parameters" />
