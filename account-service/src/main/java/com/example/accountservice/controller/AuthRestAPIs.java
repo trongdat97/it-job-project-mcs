@@ -104,4 +104,5 @@ public class AuthRestAPIs {
 
         return ResponseEntity.ok().body("User registered successfully!");
     }
+
 }

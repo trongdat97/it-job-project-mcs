@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/image-service/image-service.iml" filepath="$PROJECT_DIR$/image-service/image-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/it-job-project-mcs.iml" filepath="$PROJECT_DIR$/.idea/it-job-project-mcs.iml" />
       <module fileurl="file://$PROJECT_DIR$/job-service/job-service.iml" filepath="$PROJECT_DIR$/job-service/job-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jobs-service/jobs-service.iml" filepath="$PROJECT_DIR$/jobs-service/jobs-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/zuul-server/zuul-server.iml" filepath="$PROJECT_DIR$/zuul-server/zuul-server.iml" />
     </modules>
   </component>
