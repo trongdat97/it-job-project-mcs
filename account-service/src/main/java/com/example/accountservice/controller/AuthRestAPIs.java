@@ -1,8 +1,6 @@
 package com.example.accountservice.controller;
 
-import com.example.accountservice.message.request.ChangePassForm;
-import com.example.accountservice.message.request.LoginForm;
-import com.example.accountservice.message.request.SignUpForm;
+import com.example.accountservice.message.request.*;
 import com.example.accountservice.message.response.JwtResponse;
 import com.example.accountservice.model.Role;
 import com.example.accountservice.model.RoleName;
@@ -10,11 +8,13 @@ import com.example.accountservice.model.User;
 import com.example.accountservice.repository.RoleRepository;
 import com.example.accountservice.repository.UserRepository;
 import com.example.accountservice.security.jwt.JwtProvider;
+import com.example.accountservice.security.services.EmailService;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,6 +35,9 @@ public class AuthRestAPIs {
 
     @Value("${jwtSecret}")
     private String jwtSecret;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -131,5 +135,32 @@ public class AuthRestAPIs {
         userRepository.save(user);
         return ResponseEntity.ok().body("Change pass successfully");
     }
+    @PostMapping("/fogot")
+    public ResponseEntity<?> resetPassByEmail(@Valid @RequestBody FogotPassForm fogotPassForm){
+        String email = fogotPassForm.getEmail();
+        User user = userRepository.loadByEmail(email);
+        user.setResettonken(UUID.randomUUID().toString());
+        userRepository.save(user);
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom("support@demo.com");
+        simpleMailMessage.setFrom(user.getEmail());
+        simpleMailMessage.setSubject("Password Reset Request");
+        simpleMailMessage.setText("Reset your password in /reset, get this token to do that"+ user.getResettoken());
+        emailService.sendEmail(simpleMailMessage);
+        return ResponseEntity.ok().body("Send reset token password successfully, please check mail");
+    }
+    @PostMapping("/reset")
+    public ResponseEntity<?> resetPasswordByEmailToken(@Valid @RequestBody ResetPassForm resetPassForm){
+        User user = userRepository.loadByToKen(resetPassForm.getToken());
+        if(user != null){
+            user.setPassword(encoder.encode(resetPassForm.getPassword()));
+            return ResponseEntity.ok().body("Reset pass successfully");
+        }else{
+            return new ResponseEntity<String>("Not valid",HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 
 }

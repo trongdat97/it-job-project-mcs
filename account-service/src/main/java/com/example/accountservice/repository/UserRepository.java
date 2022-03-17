@@ -15,4 +15,10 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("select u from User u where u.username = ?1")
     User loadByUsername(String username);
+
+    @Query("select u from User u where u.email = ?1")
+    User loadByEmail(String email);
+
+    @Query("select u from User u where  u.resettoken = ?1")
+    User loadByToKen(String token);
 }

@@ -42,6 +42,10 @@ public class User{
     @Size(min=6, max = 100)
     private String password;
 
+
+
+    private String resettoken;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -55,6 +59,11 @@ public class User{
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+    public String getResettoken(){return resettoken;}
+
+    public void setResettonken(String resettoken){
+        this.resettoken = resettoken;
     }
 
     public Long getId() {
