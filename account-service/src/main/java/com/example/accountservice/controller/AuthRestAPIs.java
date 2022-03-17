@@ -1,5 +1,6 @@
 package com.example.accountservice.controller;
 
+import com.example.accountservice.message.request.ChangePassForm;
 import com.example.accountservice.message.request.LoginForm;
 import com.example.accountservice.message.request.SignUpForm;
 import com.example.accountservice.message.response.JwtResponse;
@@ -9,7 +10,9 @@ import com.example.accountservice.model.User;
 import com.example.accountservice.repository.RoleRepository;
 import com.example.accountservice.repository.UserRepository;
 import com.example.accountservice.security.jwt.JwtProvider;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +31,9 @@ import java.util.Set;
 @RestController
 @RequestMapping("/auth")
 public class AuthRestAPIs {
+
+    @Value("${jwtSecret}")
+    private String jwtSecret;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -103,6 +110,26 @@ public class AuthRestAPIs {
         userRepository.save(user);
 
         return ResponseEntity.ok().body("User registered successfully!");
+    }
+
+    @PostMapping("/changepass")
+    public ResponseEntity<?> changePass(@Valid @RequestBody ChangePassForm changePassForm, HttpServletRequest request){
+        String authHeader = request.getHeader("Authorization");
+        String authToken = authHeader.replace("Bearer ","");
+
+        String username = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(authToken)
+                .getBody().getSubject();
+
+        User user = userRepository.loadByUsername(username);
+        if(encoder.matches(changePassForm.getPassword(),user.getPassword())){
+            user.setPassword(encoder.encode(changePassForm.getNewpassword()));
+        }else {
+            return new ResponseEntity<String>("not valid",HttpStatus.BAD_REQUEST);
+        }
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Change pass successfully");
     }
 
 }
