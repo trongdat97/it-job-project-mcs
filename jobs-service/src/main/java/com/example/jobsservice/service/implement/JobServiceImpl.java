@@ -34,15 +34,13 @@ public class JobServiceImpl implements JobService {
         jobDTO = modelMapper.map(job,JobDTO.class);
         return jobDTO;
     }
-//    @Override
-//    public List<JobDTO> searchByTitle(String name){
-//        List<Job> jobs = jobRepository.findByTitleContaining(name);
-//        List<JobDTO> jobDTOs = new ArrayList<>();
-//        for ( int i = 0; i < jobs.size(); i++){
-//            BeanUtils.copyProperties(jobDTOs.get(i),jobs.get(i));
-//        }
-//        return jobDTOs;
-//    }
+    @Override
+    public List<JobDTO> searchJob(String name){
+        List<Job> jobs = jobRepository.findByJobName(name);
+        Type listType = new TypeToken<List<JobDTO>>() {}.getType();
+        List<JobDTO> jobDTOs = modelMapper.map(jobs, listType);
+        return jobDTOs;
+    }
     @Override
     public List<JobDTO> getAllJob(){
         List<Job> jobs = jobRepository.findAll();
@@ -72,7 +70,7 @@ public class JobServiceImpl implements JobService {
             newJob.setTimeExpired(jobUpdateRequest.getTimeExpired());
             newJob.setCompanyName(jobUpdateRequest.getCompanyName());
             jobRepository.save(newJob);
-            BeanUtils.copyProperties(jobDTO,newJob);
+            jobDTO = modelMapper.map(newJob,JobDTO.class);
             return jobDTO;
         }
         return null;

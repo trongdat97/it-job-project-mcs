@@ -10,7 +10,7 @@ import java.util.Date;
 @Document(collection = "job")
 public class Job {
     @Id
-    @Field("id")
+    //@Field("id")
     private String id;
     private String JobName;
     private String CompanyName;

@@ -13,6 +13,6 @@ public interface JobService {
     public JobDTO getJobById(String id);
     public JobDTO updateJob(String id, JobUpdateRequest jobUpdateRequest);
     public void deleteJob(String id);
-//    public List<JobDTO> searchJob(Optional optional);
+    public List<JobDTO> searchJob(String name);
  //   public List<JobDTO> searchByTitle(String name);
 }

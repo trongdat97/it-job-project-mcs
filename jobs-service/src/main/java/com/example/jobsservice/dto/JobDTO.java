@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.Date;
 
 public class JobDTO {
-    @Field("id")
+//    @Field("id")
     private String id;
     private String JobName;
     private String CompanyName;
