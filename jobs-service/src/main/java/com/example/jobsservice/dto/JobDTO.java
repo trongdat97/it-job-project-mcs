@@ -1,15 +1,11 @@
-package com.example.jobsservice.model;
+package com.example.jobsservice.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import java.util.Date;
 
-@Document(collection = "job")
-public class Job {
-    @Id
+public class JobDTO {
     @Field("id")
     private String id;
     private String JobName;
@@ -20,11 +16,11 @@ public class Job {
     private Date TimeExpired;
     private String JobDetail;
 
-    public Job(){
+    public JobDTO(){
 
     }
 
-    public Job(String id, String jobName, String companyName, String companyAddress, String companyLogo,
+    public JobDTO(String id, String jobName, String companyName, String companyAddress, String companyLogo,
                Date createAt, Date timeExpired, String jobDetail) {
         this.id = id;
         this.JobName = jobName;
@@ -36,12 +32,12 @@ public class Job {
         this.JobDetail = jobDetail;
     }
 
-    public String getJobId() {
+    public String getId() {
         return id;
     }
 
-    public void setJobId(String jobId) {
-        id = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getJobName() {
@@ -98,19 +94,5 @@ public class Job {
 
     public void setJobDetail(String jobDetail) {
         JobDetail = jobDetail;
-    }
-
-    @Override
-    public String toString() {
-        return "Job{" +
-                "JobId=" + id +
-                ", JobName='" + JobName + '\'' +
-                ", CompanyName='" + CompanyName + '\'' +
-                ", CompanyAddress='" + CompanyAddress + '\'' +
-                ", CompanyLogo='" + CompanyLogo + '\'' +
-                ", CreateAt=" + CreateAt +
-                ", TimeExpired=" + TimeExpired +
-                ", JobDetail='" + JobDetail + '\'' +
-                '}';
     }
 }

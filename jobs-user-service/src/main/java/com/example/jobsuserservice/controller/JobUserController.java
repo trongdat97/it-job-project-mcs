@@ -1,13 +1,10 @@
 package com.example.jobsuserservice.controller;
 
 
-import com.example.jobsuserservice.consumer.JobRestConsumer;
 import com.example.jobsuserservice.model.Job;
+import com.example.jobsuserservice.service.implement.JobUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,12 +12,17 @@ import java.util.List;
 @RequestMapping("/user")
 public class JobUserController {
     @Autowired
-    private JobRestConsumer consumer;
+    private JobUserServiceImpl jobUserServiceImpl;
 
 
     @GetMapping("/show")
-    public ResponseEntity<List<Job>> showJob(){
-        return consumer.getAllJob();
+    public List<Job> showJob(){
+        return jobUserServiceImpl.getAllJob();
     }
+    @GetMapping("/show/{id}")
+    public  Job getJobById(@PathVariable("id") String id){
+        return jobUserServiceImpl.getJobById(id);
+    }
+
 
 }

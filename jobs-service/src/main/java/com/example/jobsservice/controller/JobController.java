@@ -1,9 +1,16 @@
 package com.example.jobsservice.controller;
 
 
+import com.example.jobsservice.dto.JobDTO;
+import com.example.jobsservice.dto.request.JobCreateRequest;
+import com.example.jobsservice.dto.response.BaseResponse;
+import com.example.jobsservice.dto.response.ResponseData;
+import com.example.jobsservice.dto.response.ResponseEmpty;
+import com.example.jobsservice.dto.response.ResponseError;
 import com.example.jobsservice.model.Job;
-import com.example.jobsservice.repository.JobRepository;
 
+import com.example.jobsservice.service.JobService;
+import com.example.jobsservice.service.implement.JobServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,77 +25,70 @@ import java.util.Optional;
 @RequestMapping("/")
 public class JobController {
     @Autowired
-    JobRepository jobRepository;
+    JobServiceImpl jobServiceImpl;
 
     @GetMapping("/jobs")
-    public ResponseEntity<List<Job>> getAllJob(@RequestParam(required = false) String title){
-        try{
-            List<Job> jobs = new ArrayList<>();
-            if(title == null){
-                jobRepository.findAll().forEach(jobs::add);
+    public BaseResponse getAllJob(@RequestParam(required = false) String title){
+//        try{
+//            List<Job> jobs = new ArrayList<>();
+//            if(title == null){
+//                jobServiceImpl.getAllJob().forEach(jobs::add);
+//            }
+////            else{
+////                jobServiceImpl.searchByTitle(title).forEach(jobs::add);
+////            }
+//            if(jobs.isEmpty()){
+//                return new ResponseData(HttpStatus.NO_CONTENT);
+//            }
+//            return new ResponseData(jobs);
+//        }catch (Exception e){
+//            return new ResponseData(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        return null;
+        try {
+            List<JobDTO> jobDTOs = jobServiceImpl.getAllJob();
+            if(jobDTOs.isEmpty()){
+                return new ResponseEmpty();
             }
-            if(jobs.isEmpty()){
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(jobs,HttpStatus.OK);
+            return new ResponseData<>(jobDTOs);
         }catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseError("Error",HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
     @GetMapping("/jobs/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable("id") String id){
-        Optional<Job> jobData = jobRepository.findById(id);
-
-        if(jobData.isPresent()){
-            return new ResponseEntity<>(jobData.get(), HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+//        Optional<Job> jobData = jobServiceImpl.getJobById(id);
+//
+//        if(jobData.isPresent()){
+//            return new ResponseEntity<>(jobData.get(), HttpStatus.OK);
+//        }else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return null;
     }
     @PostMapping("/jobs")
-    public ResponseEntity<Job> createJob(@RequestBody Job job){
+    public ResponseEntity<JobDTO> createJob(@RequestBody JobCreateRequest jobCreateRequest){
         try {
-            Job _job = jobRepository.save(job);
-            return new ResponseEntity<>(_job,HttpStatus.CREATED);
+            JobDTO newJob = jobServiceImpl.createJob(jobCreateRequest);
+            return new ResponseEntity<>(newJob,HttpStatus.CREATED);
         }catch (Exception e){
-            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
         }
     }
-    @PostMapping("/jobs/{id}")
-    public ResponseEntity<Job> updateJob(@PathVariable("id") String id, @RequestBody Job job){
-        Optional<Job> jobData = jobRepository.findById(id);
-        if(jobData.isPresent()){
-            Job _job = jobData.get();
-            if(job.getCompanyAddress() !=null) {
-                _job.setCompanyAddress(job.getCompanyAddress());
-            }
-            if(job.getCompanyLogo() !=null) {
-                _job.setCompanyLogo(job.getCompanyLogo());
-            }
-            if(job.getCompanyName() !=null) {
-                _job.setCompanyName(job.getCompanyName());
-            }
-            if(job.getJobDetail() !=null) {
-                _job.setJobDetail(job.getJobDetail());
-            }
-            if(job.getJobName() !=null){
-                _job.setJobName(job.getJobName());
-            }
-            if(job.getTimeExpired() !=null){
-                _job.setTimeExpired(job.getTimeExpired());
-            }
-            return new ResponseEntity<>(jobRepository.save(_job),HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-    }
+//    @PostMapping("/jobs/{id}")
+//    public ResponseEntity<Job> updateJob(@PathVariable("id") String id, @RequestBody Job job){
+//        Job data = jobServiceImpl.updateJob(id,job);
+//        if (data == null)
+////      JobDTO dataDTO = new JobDTO();
+//        return new ResponseEntity<>(data,HttpStatus.OK);
+//    }
     @DeleteMapping("/jobs/{id}")
-    public ResponseEntity<HttpStatus> deleteJob(@PathVariable("id") String id){
+    public ResponseEntity<?> deleteJob(@PathVariable("id") String id){
         try{
-            jobRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            jobServiceImpl.deleteJob(id);
+            return new ResponseEntity<String>("Delete successfully",HttpStatus.NO_CONTENT);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
