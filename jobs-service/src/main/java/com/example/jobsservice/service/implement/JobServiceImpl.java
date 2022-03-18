@@ -36,7 +36,7 @@ public class JobServiceImpl implements JobService {
     }
     @Override
     public List<JobDTO> searchJob(String name){
-        List<Job> jobs = jobRepository.findByJobName(name);
+        List<Job> jobs = jobRepository.findByJobName2(name);
         Type listType = new TypeToken<List<JobDTO>>() {}.getType();
         List<JobDTO> jobDTOs = modelMapper.map(jobs, listType);
         return jobDTOs;
@@ -50,10 +50,10 @@ public class JobServiceImpl implements JobService {
     }
     @Override
     public JobDTO getJobById(String id){
-        Optional<Job> OJob = jobRepository.findById(id);
-        Job job = OJob.get();
         JobDTO jobDTO = new JobDTO();
-        BeanUtils.copyProperties(jobDTO,job);
+        Optional<Job> jobData = jobRepository.findById(id);
+        Job newJob = jobData.get();
+        jobDTO = modelMapper.map(newJob,JobDTO.class);
         return  jobDTO;
     }
 

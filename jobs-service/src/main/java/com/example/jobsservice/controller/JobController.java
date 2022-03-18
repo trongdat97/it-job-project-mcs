@@ -59,23 +59,28 @@ public class JobController {
 
     }
     @GetMapping("/jobs/{id}")
-    public ResponseEntity<Job> getJobById(@PathVariable("id") String id){
-//        Optional<Job> jobData = jobServiceImpl.getJobById(id);
-//
-//        if(jobData.isPresent()){
-//            return new ResponseEntity<>(jobData.get(), HttpStatus.OK);
-//        }else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-        return null;
+    public BaseResponse getJobById(@PathVariable("id") String id){
+        try{
+            JobDTO jobData = jobService.getJobById(id);
+            if(jobData == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jobData);
+        }catch (Exception e){
+            return new ResponseError("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
     @PostMapping("/jobs")
-    public ResponseEntity<JobDTO> createJob(@RequestBody JobCreateRequest jobCreateRequest){
+    public BaseResponse createJob(@RequestBody JobCreateRequest jobCreateRequest){
         try {
             JobDTO newJob = jobService.createJob(jobCreateRequest);
-            return new ResponseEntity<>(newJob,HttpStatus.CREATED);
+            if(newJob == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(newJob);
         }catch (Exception e){
-            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+            return new ResponseError("Error",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @PostMapping("/jobs/{id}")
@@ -101,7 +106,7 @@ public class JobController {
             return new ResponseError("Error",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/jobs/{name}")
+    @GetMapping("/jobssearch/{name}")
     public BaseResponse search(@PathVariable("name") String name){
         try{
             List<JobDTO> jobs = jobService.searchJob(name);
