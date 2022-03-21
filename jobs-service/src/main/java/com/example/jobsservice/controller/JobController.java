@@ -1,26 +1,20 @@
 package com.example.jobsservice.controller;
 
 
+import com.example.common.Response.BaseResponse;
+import com.example.common.Response.ResponseData;
+import com.example.common.Response.ResponseEmpty;
+import com.example.common.Response.ResponseError;
 import com.example.jobsservice.dto.JobDTO;
 import com.example.jobsservice.dto.request.JobCreateRequest;
 import com.example.jobsservice.dto.request.JobUpdateRequest;
-import com.example.jobsservice.dto.response.BaseResponse;
-import com.example.jobsservice.dto.response.ResponseData;
-import com.example.jobsservice.dto.response.ResponseEmpty;
-import com.example.jobsservice.dto.response.ResponseError;
-import com.example.jobsservice.model.Job;
 
 import com.example.jobsservice.service.JobService;
-import com.example.jobsservice.service.implement.JobServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -30,7 +24,7 @@ public class JobController {
     JobService jobService;
 
     @GetMapping("/jobs")
-    public BaseResponse getAllJob(@RequestParam(required = false) String title){
+    public BaseResponse<List<JobDTO>> getAllJob(@RequestParam(required = false) String title){
 //        try{
 //            List<Job> jobs = new ArrayList<>();
 //            if(title == null){
@@ -59,7 +53,7 @@ public class JobController {
 
     }
     @GetMapping("/jobs/{id}")
-    public BaseResponse getJobById(@PathVariable("id") String id){
+    public BaseResponse<JobDTO> getJobById(@PathVariable("id") String id){
         try{
             JobDTO jobData = jobService.getJobById(id);
             if(jobData == null){
