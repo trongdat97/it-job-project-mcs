@@ -12,6 +12,7 @@
         <module name="common" />
         <module name="zuul-server" />
         <module name="jobs-service" />
+        <module name="cv-service" />
         <module name="jobs-user-service" />
         <module name="api-gateway" />
       </profile>
@@ -21,6 +22,7 @@
       <module name="api-gateway" target="1.8" />
       <module name="common" target="1.8" />
       <module name="core" target="1.8" />
+      <module name="cv-service" target="1.8" />
       <module name="eureka-server" target="1.8" />
       <module name="gallery-service" target="1.8" />
       <module name="image-service" target="1.8" />
@@ -36,6 +38,7 @@
       <module name="api-gateway" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="core" options="-parameters" />
+      <module name="cv-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
       <module name="gallery-service" options="-parameters" />
       <module name="image-service" options="-parameters" />

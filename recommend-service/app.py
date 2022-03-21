@@ -7,12 +7,12 @@ import py_eureka_client.eureka_client as eureka_client
 
 
 
-rest_port = 8050
+rest_port = 8500
 eureka_client.init(eureka_server="http://localhost:8761/eureka",
                    app_name="recommend-serivce",
                    instance_port=rest_port)
 
-rest_port = 8050
+
 try: 
    conn = mariadb.connect(
       user="root",

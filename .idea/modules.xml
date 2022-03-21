@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/account-service/account-service.iml" filepath="$PROJECT_DIR$/account-service/account-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/api-gateway/api-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cv-service/cv-service.iml" filepath="$PROJECT_DIR$/cv-service/cv-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/it-job-project-mcs.iml" filepath="$PROJECT_DIR$/.idea/it-job-project-mcs.iml" />
       <module fileurl="file://$PROJECT_DIR$/jobs-service/jobs-service.iml" filepath="$PROJECT_DIR$/jobs-service/jobs-service.iml" />
