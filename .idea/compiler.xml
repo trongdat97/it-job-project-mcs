@@ -10,13 +10,10 @@
         <module name="account-service" />
         <module name="eureka-server" />
         <module name="common" />
-        <module name="image-service" />
         <module name="zuul-server" />
         <module name="jobs-service" />
         <module name="jobs-user-service" />
-        <module name="gallery-service" />
         <module name="api-gateway" />
-        <module name="job-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

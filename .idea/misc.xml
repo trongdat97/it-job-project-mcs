@@ -7,11 +7,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
-        <option value="$PROJECT_DIR$/image-service/pom.xml" />
-        <option value="$PROJECT_DIR$/gallery-service/pom.xml" />
         <option value="$PROJECT_DIR$/zuul-server/pom.xml" />
         <option value="$PROJECT_DIR$/account-service/pom.xml" />
-        <option value="$PROJECT_DIR$/job-service/pom.xml" />
         <option value="$PROJECT_DIR$/api-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/jobs-service/pom.xml" />
         <option value="$PROJECT_DIR$/jobs-user-service/pom.xml" />

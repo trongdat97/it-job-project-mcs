@@ -6,10 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/api-gateway/api-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gallery-service/gallery-service.iml" filepath="$PROJECT_DIR$/gallery-service/gallery-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/image-service/image-service.iml" filepath="$PROJECT_DIR$/image-service/image-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/it-job-project-mcs.iml" filepath="$PROJECT_DIR$/.idea/it-job-project-mcs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/job-service/job-service.iml" filepath="$PROJECT_DIR$/job-service/job-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/jobs-service/jobs-service.iml" filepath="$PROJECT_DIR$/jobs-service/jobs-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/jobs-user-service/jobs-user-service.iml" filepath="$PROJECT_DIR$/jobs-user-service/jobs-user-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/zuul-server/zuul-server.iml" filepath="$PROJECT_DIR$/zuul-server/zuul-server.iml" />
