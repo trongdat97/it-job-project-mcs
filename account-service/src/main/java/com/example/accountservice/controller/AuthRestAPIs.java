@@ -92,69 +92,37 @@ public class AuthRestAPIs {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity<String>("Fail -> Username is already taken!",
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<String>("Fail -> Email is already in use!",
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
-
-        Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-
-        strRoles.forEach(role -> {
-            switch(role) {
-                case "admin":
-                    Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(adminRole);
-
-                    break;
-                case "pm":
-                    Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(pmRole);
-
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(userRole);
+    public BaseResponse registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+        try {
+            User user = authService.signup(signUpRequest);
+            if(user==null){
+                return new ResponseEmpty();
             }
-        });
+            return new ResponseData("Register successfully");
+        }catch (Exception e){
+            return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        user.setRoles(roles);
-        userRepository.save(user);
 
-        return ResponseEntity.ok().body("User registered successfully!");
+
+
     }
 
     @PostMapping("/changepass")
-    public ResponseEntity<?> changePass(@Valid @RequestBody ChangePassForm changePassForm, HttpServletRequest request){
-        String authHeader = request.getHeader("Authorization");
-        String authToken = authHeader.replace("Bearer ","");
+    public BaseResponse changePass(@Valid @RequestBody ChangePassForm changePassForm, HttpServletRequest request){
 
-        String username = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(authToken)
-                .getBody().getSubject();
+        try {
+            User userJWT = authService.getUserFromJWT(request);
+            User user = authService.changePass(changePassForm,userJWT);
+            if(user == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData("Change password successfully");
 
-        User user = userRepository.loadByUsername(username);
-        if(encoder.matches(changePassForm.getPassword(),user.getPassword())){
-            user.setPassword(encoder.encode(changePassForm.getNewpassword()));
-        }else {
-            return new ResponseEntity<String>("not valid",HttpStatus.BAD_REQUEST);
+
+        }catch (Exception e){
+            return new ResponseError("Error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        userRepository.save(user);
-        return ResponseEntity.ok().body("Change pass successfully");
     }
     @PostMapping("/fogot")
     public ResponseEntity<?> resetPassByEmail(@Valid @RequestBody FogotPassForm fogotPassForm){
