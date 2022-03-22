@@ -1,43 +1,41 @@
 package com.example.accountservice.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-public class UserInfoToken implements UserDetails {
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+public class UserInfoToken{
+    private String username;
+    private Set<Role> roles = new HashSet<>();
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public UserInfoToken(String username, Set<Role> roles) {
+        this.username = username;
+        this.roles = roles;
+    }
+
+    public static UserInfoToken build(User user){
+        return new UserInfoToken(
+                user.getUsername(),
+                user.getRoles()
+        );
     }
 }

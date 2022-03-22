@@ -3,10 +3,7 @@ package com.example.accountservice.services.implement;
 import com.example.accountservice.jwt.JwtProvider;
 import com.example.accountservice.message.request.*;
 import com.example.accountservice.message.response.JwtResponse;
-import com.example.accountservice.model.Role;
-import com.example.accountservice.model.RoleName;
-import com.example.accountservice.model.User;
-import com.example.accountservice.model.UserPrinciple;
+import com.example.accountservice.model.*;
 import com.example.accountservice.repository.RoleRepository;
 import com.example.accountservice.repository.UserRepository;
 import com.example.accountservice.services.AuthService;
@@ -47,9 +44,9 @@ public class AuthServiceImpl implements AuthService {
     public JwtResponse signin(LoginForm loginForm) {
         User user = userRepository.loadByUsername(loginForm.getUsername());
         if(encoder.matches(loginForm.getPassword(),user.getPassword())){
-            UserPrinciple userPrinciple = UserPrinciple.build(user);
+            UserInfoToken userInfoToken = UserInfoToken.build(user);
 
-            String jwt = jwtProvider.generateJwtToken(userPrinciple);
+            String jwt = jwtProvider.generateJwtToken(userInfoToken);
             return new JwtResponse(jwt);
         }else {
             return null;

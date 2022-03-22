@@ -1,36 +1,18 @@
 package com.example.accountservice.services.implement;
 
 import com.example.accountservice.model.User;
-import com.example.accountservice.model.UserPrinciple;
+
 import com.example.accountservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl {
     @Autowired
     UserRepository userRepository;
-
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User Not Found with -> username or email : " + username)
-                );
-
-        return UserPrinciple.build(user);
-    }
-
     public List<User> findAll(){
         List<User> users = new ArrayList<User>();
         userRepository.findAll().forEach(user->users.add(user));

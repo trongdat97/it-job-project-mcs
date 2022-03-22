@@ -11,29 +11,24 @@ import com.example.accountservice.jwt.JwtProvider;
 import com.example.accountservice.services.AuthService;
 import com.example.accountservice.services.EmailService;
 import com.example.accountservice.services.implement.UserDetailsServiceImpl;
-import com.example.accountservice.model.UserPrinciple;
+
 import com.example.common.Response.BaseResponse;
 import com.example.common.Response.ResponseData;
 import com.example.common.Response.ResponseEmpty;
 import com.example.common.Response.ResponseError;
-import io.jsonwebtoken.Jwts;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Set;
+
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
