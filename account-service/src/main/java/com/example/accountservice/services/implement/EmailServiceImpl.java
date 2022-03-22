@@ -1,5 +1,6 @@
-package com.example.accountservice.security.services;
+package com.example.accountservice.services.implement;
 
+import com.example.accountservice.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

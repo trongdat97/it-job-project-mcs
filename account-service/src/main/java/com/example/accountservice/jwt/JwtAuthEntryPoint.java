@@ -1,4 +1,4 @@
-package com.example.accountservice.security.jwt;
+package com.example.accountservice.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

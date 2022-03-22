@@ -1,6 +1,5 @@
-package com.example.accountservice.security.services;
+package com.example.accountservice.model;
 
-import com.example.accountservice.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,6 +37,8 @@ public class UserPrinciple implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
+
+
     public static UserPrinciple build(User user){
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());

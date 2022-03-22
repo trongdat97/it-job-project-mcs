@@ -1,6 +1,7 @@
-package com.example.accountservice.security.services;
+package com.example.accountservice.services.implement;
 
 import com.example.accountservice.model.User;
+import com.example.accountservice.model.UserPrinciple;
 import com.example.accountservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

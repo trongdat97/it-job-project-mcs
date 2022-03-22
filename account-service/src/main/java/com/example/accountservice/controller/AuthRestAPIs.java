@@ -7,18 +7,26 @@ import com.example.accountservice.model.RoleName;
 import com.example.accountservice.model.User;
 import com.example.accountservice.repository.RoleRepository;
 import com.example.accountservice.repository.UserRepository;
-import com.example.accountservice.security.jwt.JwtProvider;
-import com.example.accountservice.security.services.EmailService;
+import com.example.accountservice.jwt.JwtProvider;
+import com.example.accountservice.services.AuthService;
+import com.example.accountservice.services.EmailService;
+import com.example.accountservice.services.implement.UserDetailsServiceImpl;
+import com.example.accountservice.model.UserPrinciple;
+import com.example.common.Response.BaseResponse;
+import com.example.common.Response.ResponseData;
+import com.example.common.Response.ResponseEmpty;
+import com.example.common.Response.ResponseError;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,8 +47,8 @@ public class AuthRestAPIs {
     @Autowired
     EmailService emailService;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+//    @Autowired
+//    AuthenticationManager authenticationManager;
 
     @Autowired
     UserRepository userRepository;
@@ -54,20 +62,33 @@ public class AuthRestAPIs {
     @Autowired
     JwtProvider jwtProvider;
 
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    AuthService authService;
+
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+    public BaseResponse authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                )
-        );
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getUsername(),
+//                        loginRequest.getPassword()
+//                )
+//        );
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            JwtResponse jwt =  authService.signin(loginRequest);
+            if(jwt == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jwt);
+        }catch (Exception e){
+            return new ResponseError("Error"+e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = jwtProvider.generateJwtToken(authentication);
-        return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
     @PostMapping("/signup")

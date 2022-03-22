@@ -1,12 +1,11 @@
-package com.example.accountservice.security.jwt;
+package com.example.accountservice.jwt;
 
 
-import com.example.accountservice.security.services.UserPrinciple;
+import com.example.accountservice.model.UserPrinciple;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -23,14 +22,15 @@ public class JwtProvider {
     @Value("${jwtExpiration}")
     private int jwtExpiration;
 
-    public String generateJwtToken(Authentication authentication) {
+    public String generateJwtToken(UserPrinciple userPrinciple) {
 
-        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+//        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject((userPrinciple.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
+                .claim("user-details",new UserPrinciple(null,null,userPrinciple.getUsername(),null,null,userPrinciple.getAuthorities()))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

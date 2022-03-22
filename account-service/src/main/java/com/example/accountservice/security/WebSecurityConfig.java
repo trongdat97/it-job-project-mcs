@@ -1,8 +1,8 @@
 package com.example.accountservice.security;
 
-import com.example.accountservice.security.jwt.JwtAuthEntryPoint;
-import com.example.accountservice.security.jwt.JwtAuthTokenFilter;
-import com.example.accountservice.security.services.UserDetailsServiceImpl;
+import com.example.accountservice.jwt.JwtAuthEntryPoint;
+import com.example.accountservice.jwt.JwtAuthTokenFilter;
+import com.example.accountservice.services.implement.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

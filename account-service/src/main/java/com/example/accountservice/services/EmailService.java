@@ -1,4 +1,4 @@
-package com.example.accountservice.security.services;
+package com.example.accountservice.services;
 
 import org.springframework.mail.SimpleMailMessage;
 
