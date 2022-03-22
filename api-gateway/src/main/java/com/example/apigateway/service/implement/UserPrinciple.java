@@ -1,5 +1,6 @@
 package com.example.apigateway.service.implement;
 
+import com.example.apigateway.dto.UserDtoZuul;
 import com.example.apigateway.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,7 +39,7 @@ public class UserPrinciple implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-    public static UserPrinciple build(User user){
+    public static UserPrinciple build(UserDtoZuul user){
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
         return new UserPrinciple(

@@ -1,5 +1,6 @@
 package com.example.apigateway.jwt;
 
+import com.example.apigateway.service.UserZuul;
 import com.example.apigateway.service.implement.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+//    @Autowired
+//    private UserZuul userZuul;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
 

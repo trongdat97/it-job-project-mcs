@@ -10,6 +10,6 @@ import javax.validation.Valid;
 
 @FeignClient("account-service")
 public interface UserClient {
-    @GetMapping("/user/{name}")
+    @GetMapping("/auth/user/{name}")
     public BaseResponse<UserDtoZuul> getUserByName(@Valid @PathVariable("name") String name);
 }
