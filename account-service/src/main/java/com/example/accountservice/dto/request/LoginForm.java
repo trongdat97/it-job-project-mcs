@@ -1,4 +1,4 @@
-package com.example.accountservice.message.request;
+package com.example.accountservice.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

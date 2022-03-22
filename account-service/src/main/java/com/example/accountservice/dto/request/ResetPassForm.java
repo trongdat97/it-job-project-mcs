@@ -1,4 +1,4 @@
-package com.example.accountservice.message.request;
+package com.example.accountservice.dto.request;
 
 public class ResetPassForm {
     private String token;

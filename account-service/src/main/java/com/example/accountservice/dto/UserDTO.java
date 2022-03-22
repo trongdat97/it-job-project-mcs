@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserDtoZuul {
+public class UserDTO {
     private static final Long serialVersionUID = 1L;
 
     private Long id;
@@ -20,16 +20,6 @@ public class UserDtoZuul {
     @JsonIgnore
     private String password;
     private Set<Role> roles = new HashSet<>();
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-
 
     public static Long getSerialVersionUID() {
         return serialVersionUID;
@@ -73,5 +63,13 @@ public class UserDtoZuul {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

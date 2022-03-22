@@ -1,7 +1,7 @@
 package com.example.accountservice.services;
 
-import com.example.accountservice.message.request.*;
-import com.example.accountservice.message.response.JwtResponse;
+import com.example.accountservice.dto.request.*;
+import com.example.accountservice.dto.response.JwtResponse;
 import com.example.accountservice.model.User;
 import com.example.common.Response.BaseResponse;
 
@@ -14,4 +14,5 @@ public interface AuthService {
     BaseResponse forgotPass(FogotPassForm fogotPassForm);
     BaseResponse resetPass(ResetPassForm resetPassForm);
     User getUserFromJWT(HttpServletRequest request);
+    void setRole(SetRoleForm setRoleForm);
 }

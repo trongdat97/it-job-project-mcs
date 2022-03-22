@@ -1,7 +1,4 @@
-package com.example.accountservice.message.request;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+package com.example.accountservice.dto.request;
 
 public class ChangePassForm {
 

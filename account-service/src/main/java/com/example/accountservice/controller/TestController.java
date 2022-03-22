@@ -1,8 +1,9 @@
 package com.example.accountservice.controller;
 
+import com.example.accountservice.dto.UserDTO;
 import com.example.accountservice.model.ResponseData;
-import com.example.accountservice.model.User;
-import com.example.accountservice.services.implement.UserDetailsServiceImpl;
+import com.example.accountservice.services.UserService;
+import com.example.accountservice.services.implement.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/test")
 public class TestController {
+    @Autowired
+    UserService userService;
 
     @GetMapping("/user")
     public String userAccess() {
@@ -29,10 +32,9 @@ public class TestController {
     public String adminAccess() {
         return ">>> Admin Contents";
     }
-    @Autowired
-    UserDetailsServiceImpl udsi;
+
     @GetMapping("/findall")
-    public ResponseData<List<User>>  findAll() {
-        return new ResponseData<List<User>>(udsi.findAll());
+    public ResponseData<List<UserDTO>>  findAll() {
+        return new ResponseData<List<UserDTO>>(userService.getAllUser());
     }
 }

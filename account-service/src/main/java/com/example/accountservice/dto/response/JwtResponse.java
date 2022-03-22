@@ -1,4 +1,4 @@
-package com.example.accountservice.message.response;
+package com.example.accountservice.dto.response;
 
 public class JwtResponse {
     private String token;

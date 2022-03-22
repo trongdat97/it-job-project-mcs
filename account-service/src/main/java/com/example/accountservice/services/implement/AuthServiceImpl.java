@@ -1,20 +1,16 @@
 package com.example.accountservice.services.implement;
 
 import com.example.accountservice.jwt.JwtProvider;
-import com.example.accountservice.message.request.*;
-import com.example.accountservice.message.response.JwtResponse;
+import com.example.accountservice.dto.request.*;
+import com.example.accountservice.dto.response.JwtResponse;
 import com.example.accountservice.model.*;
 import com.example.accountservice.repository.RoleRepository;
 import com.example.accountservice.repository.UserRepository;
 import com.example.accountservice.services.AuthService;
 import com.example.common.Response.BaseResponse;
-import com.example.common.Response.ResponseData;
-import com.example.common.Response.ResponseError;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -112,5 +108,29 @@ public class AuthServiceImpl implements AuthService {
                 .getBody().getSubject();
         User user = userRepository.loadByUsername(username);
         return user;
+    }
+
+    @Override
+    public void setRole(SetRoleForm setRoleForm) {
+        User user = userRepository.loadByUsername(setRoleForm.getUsername());
+        Set<String> strRoles = setRoleForm.getRoles();
+        Set<Role> roles = new HashSet<>();
+        strRoles.forEach(role -> {
+            switch(role) {
+                case "pm":
+                    Role modRole = roleRepository.findByName(RoleName.ROLE_PM)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(modRole);
+                    break;
+                case "user":
+                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(userRole);
+            }
+        });
+        user.setRoles(roles);
+        userRepository.save(user);
+
+
     }
 }
