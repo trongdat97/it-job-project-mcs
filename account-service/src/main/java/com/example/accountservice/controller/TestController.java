@@ -13,29 +13,25 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/test")
-public class TestRestAPIs {
+public class TestController {
 
     @GetMapping("/user")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String userAccess() {
         return ">>> User Contents!";
     }
 
     @GetMapping("/pm")
-//    @PreAuthorize("hasRole('PM') or hasRole('ADMIN')")
     public String projectManagementAccess() {
         return ">>> Board Management Project";
     }
 
     @GetMapping("/admin")
-//    @PreAuthorize("hasRole('ADMIN')")
     public String adminAccess() {
         return ">>> Admin Contents";
     }
     @Autowired
     UserDetailsServiceImpl udsi;
     @GetMapping("/findall")
-//    @PreAuthorize("hasRole('PM') or hasRole('ADMIN')")
     public ResponseData<List<User>>  findAll() {
         return new ResponseData<List<User>>(udsi.findAll());
     }

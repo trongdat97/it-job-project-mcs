@@ -34,16 +34,10 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
-public class AuthRestAPIs {
-
-    @Value("${jwtSecret}")
-    private String jwtSecret;
+public class AuthController {
 
     @Autowired
     EmailService emailService;
-
-//    @Autowired
-//    AuthenticationManager authenticationManager;
 
     @Autowired
     UserRepository userRepository;
@@ -65,15 +59,6 @@ public class AuthRestAPIs {
 
     @PostMapping("/signin")
     public BaseResponse authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginRequest.getUsername(),
-//                        loginRequest.getPassword()
-//                )
-//        );
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
         try {
             JwtResponse jwt =  authService.signin(loginRequest);
             if(jwt == null){
@@ -97,9 +82,6 @@ public class AuthRestAPIs {
         }catch (Exception e){
             return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
-
 
     }
 

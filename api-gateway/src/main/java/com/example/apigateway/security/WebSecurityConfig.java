@@ -1,8 +1,8 @@
-package com.example.apigateway;
+package com.example.apigateway.security;
 
-import com.example.apigateway.security.jwt.JwtAuthEntryPoint;
-import com.example.apigateway.security.jwt.JwtAuthTokenFilter;
-import com.example.apigateway.security.service.UserDetailsServiceImpl;
+import com.example.apigateway.jwt.JwtAuthEntryPoint;
+import com.example.apigateway.jwt.JwtAuthTokenFilter;
+import com.example.apigateway.service.implement.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

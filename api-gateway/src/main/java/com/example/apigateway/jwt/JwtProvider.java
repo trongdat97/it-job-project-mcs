@@ -1,6 +1,6 @@
-package com.example.apigateway.security.jwt;
+package com.example.apigateway.jwt;
 
-import com.example.apigateway.security.service.UserPrinciple;
+import com.example.apigateway.service.implement.UserPrinciple;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

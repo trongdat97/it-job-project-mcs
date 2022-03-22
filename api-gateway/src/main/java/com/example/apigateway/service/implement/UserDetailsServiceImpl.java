@@ -1,4 +1,4 @@
-package com.example.apigateway.security.service;
+package com.example.apigateway.service.implement;
 
 import com.example.apigateway.model.User;
 import com.example.apigateway.repository.UserRepository;
