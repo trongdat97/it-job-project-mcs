@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -132,5 +133,28 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
 
 
+    }
+
+    @Override
+    public void resetPassByMail(FogotPassForm fogotPassForm) {
+        String email = fogotPassForm.getEmail();
+        User user = userRepository.loadByEmail(email);
+        user.setResettonken(UUID.randomUUID().toString());
+        userRepository.save(user);
+        //send mail with reset token
+
+
+    }
+
+    @Override
+    public User resetPassByMailToken(ResetPassForm resetPassForm) {
+        User user = userRepository.loadByToKen(resetPassForm.getToken());
+        if (user != null) {
+            user.setPassword(encoder.encode(resetPassForm.getPassword()));
+            userRepository.save(user);
+            return user;
+        } else {
+            return null;
+        }
     }
 }

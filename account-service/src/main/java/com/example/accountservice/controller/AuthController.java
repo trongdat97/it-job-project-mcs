@@ -109,30 +109,25 @@ public class AuthController {
 
     }
     @PostMapping("/fogot")
-    public ResponseEntity<?> resetPassByEmail(@Valid @RequestBody FogotPassForm fogotPassForm){
-        String email = fogotPassForm.getEmail();
-        User user = userRepository.loadByEmail(email);
-        user.setResettonken(UUID.randomUUID().toString());
-        userRepository.save(user);
-
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom("support@demo.com");
-        simpleMailMessage.setFrom(user.getEmail());
-        simpleMailMessage.setSubject("Password Reset Request");
-        simpleMailMessage.setText("Reset your password in /reset, get this token to do that"+ user.getResettoken());
-        emailService.sendEmail(simpleMailMessage);
-        return ResponseEntity.ok().body("Send reset token password successfully, please check mail");
+    public BaseResponse resetPassByEmail(@Valid @RequestBody FogotPassForm fogotPassForm){
+        try {
+            authService.resetPassByMail(fogotPassForm);
+            return new ResponseData("");
+        }catch (Exception e){
+            return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @PostMapping("/reset")
-    public ResponseEntity<?> resetPasswordByEmailToken(@Valid @RequestBody ResetPassForm resetPassForm){
-        User user = userRepository.loadByToKen(resetPassForm.getToken());
-        if(user != null){
-            user.setPassword(encoder.encode(resetPassForm.getPassword()));
-            return ResponseEntity.ok().body("Reset pass successfully");
-        }else{
-            return new ResponseEntity<String>("Not valid",HttpStatus.NOT_FOUND);
+    public BaseResponse resetPasswordByEmailToken(@Valid @RequestBody ResetPassForm resetPassForm) {
+        try{
+            User user =  authService.resetPassByMailToken(resetPassForm);
+            if(user == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(user);
+        }catch (Exception e){
+            return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
 
