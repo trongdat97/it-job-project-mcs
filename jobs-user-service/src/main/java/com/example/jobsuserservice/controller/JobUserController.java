@@ -9,6 +9,9 @@ import com.example.jobsuserservice.dto.JobUserDTO;
 import com.example.jobsuserservice.model.Job;
 import com.example.jobsuserservice.service.JobUserService;
 import com.example.jobsuserservice.service.implement.JobUserServiceImpl;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +24,15 @@ public class JobUserController {
     @Autowired
     private JobUserService jobUserService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JobUserController.class);
+
+    public BaseResponse defaultCall(){
+        return new ResponseData("hello");
+    }
+
 
     @GetMapping("/show")
+    @HystrixCommand(fallbackMethod = "defaultCall")
     public BaseResponse showJob(){
         try {
             List<JobUserDTO> jobUserDTOS = jobUserService.getAllJob();
