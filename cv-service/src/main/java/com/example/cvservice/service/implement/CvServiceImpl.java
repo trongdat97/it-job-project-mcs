@@ -42,6 +42,15 @@ public class CvServiceImpl implements CvService {
     }
 
     @Override
+    public CvDTO getCvById(String id) {
+        CvDTO cvDTO = new CvDTO();
+        Optional<CV> cvOptional = cvRepository.findById(id);
+        CV cv = cvOptional.get();
+        cvDTO = modelMapper.map(cv,CvDTO.class);
+        return cvDTO;
+    }
+
+    @Override
     public List<CvDTO> getCVbyIdCompany(String id) {
         List<CV> cvOptional = cvRepository.findByIdJob(id);
         Type listType = new TypeToken<List<CV>>() {}.getType();
@@ -55,7 +64,6 @@ public class CvServiceImpl implements CvService {
         Optional<CV> cvOptional = cvRepository.findById(id);
         if(cvOptional.isPresent()){
             CV newCv = cvOptional.get();
-            newCv.setId(cvUpdateRequest.getId());
             newCv.setName(cvUpdateRequest.getName());
             newCv.setUrl(cvUpdateRequest.getUrl());
             newCv.setIdJob(cvUpdateRequest.getIdJob());

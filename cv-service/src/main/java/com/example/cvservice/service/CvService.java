@@ -9,6 +9,7 @@ import java.util.List;
 public interface CvService {
     public CvDTO createCV(CvCreateRequest cvCreateRequest);
     public List<CvDTO> getAllCV();
+    public CvDTO getCvById(String id);
     public List<CvDTO> getCVbyIdCompany(String id);
     public CvDTO updateCV(String id,CvUpdateRequest cvUpdateRequest);
     public void deleteCV(String id);
