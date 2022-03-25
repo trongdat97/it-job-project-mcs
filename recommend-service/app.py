@@ -28,6 +28,13 @@ except mariadb.Error as e:
 cur = conn.cursor()
 
 app = Flask(__name__)
+
+
+@app.route('/hello')
+def index():
+    return '<h1>Hellos!</h1>'
+
+
 @app.route('/cv', methods=['POST'])
 def create():
    try:
@@ -56,9 +63,6 @@ def get():
         a = dict(zip(key,i))
         rs.append(a)
     return jsonify(results = rs)
-@app.route('/hello')
-def index():
-    return '<h1>Hellos!</h1>'
 
 if __name__ == "__main__":
     app.debug = True

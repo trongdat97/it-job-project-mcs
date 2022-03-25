@@ -1,10 +1,10 @@
 package com.example.jobsuserservice.service.implement;
 
 import com.example.common.Response.BaseResponse;
-import com.example.jobsservice.dto.JobDTO;
 import com.example.jobsuserservice.dto.JobUserDTO;
 import com.example.jobsuserservice.feignclient.JobClient;
 import com.example.jobsuserservice.model.Job;
+import com.example.jobsuserservice.model.JobDTO;
 import com.example.jobsuserservice.service.JobUserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;

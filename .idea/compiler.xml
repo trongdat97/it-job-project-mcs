@@ -20,7 +20,7 @@
     <bytecodeTargetLevel>
       <module name="account-service" target="1.8" />
       <module name="api-gateway" target="1.8" />
-      <module name="common" target="1.8" />
+      <module name="common" target="1.5" />
       <module name="core" target="1.8" />
       <module name="cv-service" target="1.8" />
       <module name="eureka-server" target="1.8" />
@@ -36,7 +36,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
-      <module name="common" options="-parameters" />
+      <module name="common" options="" />
       <module name="core" options="-parameters" />
       <module name="cv-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
