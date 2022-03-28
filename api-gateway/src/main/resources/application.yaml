@@ -1,0 +1,12 @@
+eureka:
+  #  instance:
+  #    hostname: localhost
+  client:
+    region: region-1
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+#      zone1: http://eureka-server:8761/eureka
+      zone1: http://localhost:8761/eureka
+    availability-zones:
+      region-1: zone1

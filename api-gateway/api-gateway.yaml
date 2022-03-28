@@ -15,7 +15,7 @@ spec:
       targetPort: 8763
       nodePort: 31000
   selector:
-    app: eureka-server
+    app: api-gateway
 ---
 
 apiVersion: apps/v1
