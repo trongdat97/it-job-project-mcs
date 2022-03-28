@@ -6,7 +6,20 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-#      zone1: http://eureka-server:8761/eureka
-      zone1: http://localhost:8761/eureka
+      zone1: http://eureka-server:8761/eureka
+#      zone1: http://localhost:8761/eureka
     availability-zones:
       region-1: zone1
+
+zuul:
+  routes:
+    jobs:
+      path: /jobs/**
+      serviceId: jobs-service
+    jobsuser:
+      path: /user/**
+      serviceId: jobs-user-service
+    account:
+      path: /auth/**
+      serviceId: account-service
+  ignored-services: '*'
