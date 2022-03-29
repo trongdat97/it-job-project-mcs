@@ -1,24 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway
-  # labels: 
-  #   app: api-gateway
+  name: eureka-server
+  # labels:
+  #   app: eureka-server
+
 
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: api-gateway
+      app: eureka-server
   template:
     metadata:
-      name: api-gateway
+      name: eureka-server
       labels:
-        app: api-gateway
+        app: eureka-server
     spec:
       containers:
-        - name: api-gateway
-          image: api-gateway:0.1
+        - name: eureka-server
+          image: eureka-server:0.1
           resources:
             limits:
               memory: 512Mi
@@ -27,4 +28,4 @@ spec:
               memory: 256Mi
               cpu: "0.2"
           ports:
-            - containerPort: 8762
+            - containerPort: 8761

@@ -1,0 +1,38 @@
+version: '3.7'
+
+networks:
+  customnetwork:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+services:
+  db:
+    container_name: mydbmaria
+    image: mariadb:10.6
+    # command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    # volumes:
+    #   - db_data:/var/lib/mysql
+    # networks:
+    #   - dbnet
+    environment:
+      - MYSQL_UNIX_PORT=3307
+      - MYSQL_TCP_PORT=3307
+      - MYSQL_ROOT_PASSWORD=1234567890
+      - MYSQL_PASSWORD=1234567890
+    expose:
+      - 3307
+    networks:
+      customnetwork:
+        ipv4_address: 172.20.0.10
+    volumes:
+      - accountdata:/home/data
+
+#   nc_data:
+# networks:
+#   dbnet:
+#   redisnet:
+volumes:
+  accountdata:
+    external: true

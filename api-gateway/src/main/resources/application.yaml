@@ -11,15 +11,15 @@ eureka:
     availability-zones:
       region-1: zone1
 
-zuul:
-  routes:
-    jobs:
-      path: /jobs/**
-      serviceId: jobs-service
-    jobsuser:
-      path: /user/**
-      serviceId: jobs-user-service
-    account:
-      path: /auth/**
-      serviceId: account-service
-  ignored-services: '*'
+#zuul:
+#  routes:
+#    jobs:
+#      path: /jobs/**
+#      serviceId: jobs-service
+#    jobsuser:
+#      path: /user/**
+#      serviceId: jobs-user-service
+#    account:
+#      path: /auth/**
+#      serviceId: account-service
+#  ignored-services: '*'

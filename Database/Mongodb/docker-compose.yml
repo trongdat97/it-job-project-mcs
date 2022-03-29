@@ -1,0 +1,36 @@
+version: '3.7'
+
+
+services:
+  db_mongo:
+    container_name: mydbmongo
+    image: mongo:4.2
+    # command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    # volumes:
+    #   - db_data:/var/lib/mysql
+    # networks:
+    #   - dbnet
+    environment:
+      - MONGO_SERVER=my-mongodb
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - 27017:27017
+    networks:
+      test_customnetwork:
+        ipv4_address: 172.20.0.15
+    volumes:
+      - accountdata:/home/data
+
+#   nc_data:
+# networks:
+#   dbnet:
+#   redisnet:
+networks:
+  test_customnetwork:
+    external: true
+volumes:
+  accountdata:
+    external: true
