@@ -1,0 +1,25 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    region: region-4
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      zone1: http://eureka-server:8761/eureka
+    availability-zones:
+      region-4: zone1
+server:
+  port: 8200
+spring:
+  application:
+    name: jobs-service
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  data:
+    mongodb:
+      host: 172.20.0.15
+      port: 27017
+      database: job_db

@@ -1,0 +1,14 @@
+eureka:
+  client:
+    region: region-5
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      zone1: http://localhost:8761/eureka
+    availability-zones:
+      region-5: zone1
+server:
+  port: 8300
+spring:
+  application:
+    name: jobs-user-service

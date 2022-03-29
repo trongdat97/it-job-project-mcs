@@ -74,6 +74,7 @@ public class JobController {
             }
             return new ResponseData(newJob);
         }catch (Exception e){
+            e.printStackTrace();
             return new ResponseError("Error",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

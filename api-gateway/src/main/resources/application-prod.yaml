@@ -1,0 +1,11 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    region: region-2
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      zone1: http://eureka-server:8761/eureka
+    availability-zones:
+      region-2: zone1

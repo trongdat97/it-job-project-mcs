@@ -1,0 +1,25 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    region: region-3
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      zone1: http://eureka-server:8761/eureka
+    availability-zones:
+      region-3: zone1
+server:
+  port: 8400
+spring:
+  application:
+    name: cv-service
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  data:
+    mongodb:
+      host: 172.20.0.15
+      port: 27017
+      database: cv_db
