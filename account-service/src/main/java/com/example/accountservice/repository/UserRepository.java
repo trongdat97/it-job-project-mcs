@@ -21,4 +21,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("select u from User u where  u.resettoken = ?1")
     User loadByToKen(String token);
+
+    @Query("select u from User u where  u.id = ?1")
+    User loadById(Long id);
 }

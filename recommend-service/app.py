@@ -1,5 +1,4 @@
 from flask import Flask
-import json
 from flask import request,jsonify
 import mariadb
 import sys
@@ -8,22 +7,22 @@ import py_eureka_client.eureka_client as eureka_client
 
 
 rest_port = 8500
-eureka_client.init(eureka_server="http://eureka-server:8761/eureka",
+eureka_client.init(eureka_server="http://localhost:8761/eureka",
                    app_name="recommend-serivce",
                    instance_port=rest_port)
 
 
-try: 
-   conn = mariadb.connect(
-      user="root",
-      password="1234567890",
-      host="172.20.0.10",
-      port=3307,
-      database="recommend-service"
-   )
+try:
+    conn = mariadb.connect(
+        user="root",
+        password="1234567890",
+        host="127.0.0.1",
+        port=3307,
+        database="recommend-service"
+    )
 except mariadb.Error as e:
-   print(f"error connect to mariadb:  {e}" )
-   sys.exit(1)
+    print(f"error connect to mariadb:  {e}" )
+    sys.exit(1)
 
 cur = conn.cursor()
 
@@ -37,17 +36,17 @@ def index():
 
 @app.route('/cv', methods=['POST'])
 def create():
-   try:
-      _json = request.json
-      id = _json['id']
-      name = _json['name']
-      url = _json['url']
-      active = _json['active']
-      cur.execute("INSERT INTO cv (id, name,url,active) VALUES (?,?,?,?)",(id,name,url,active))
-   except mariadb.Error as e:
-      print(e)
-   conn.commit()
-   return "Adding CV successfully"
+    try:
+        _json = request.json
+        id = _json['id']
+        name = _json['name']
+        url = _json['url']
+        active = _json['active']
+        cur.execute("INSERT INTO cv (id, name,url,active) VALUES (?,?,?,?)",(id,name,url,active))
+    except mariadb.Error as e:
+        print(e)
+    conn.commit()
+    return "Adding CV successfully"
 
 @app.route('/cv',methods=['GET'])
 def get():

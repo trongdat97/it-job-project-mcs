@@ -28,4 +28,11 @@ public class UserServiceImpl implements UserService {
         List<UserDTO> userDTOs = modelMapper.map(users,listType);
         return userDTOs;
     }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        User user = userRepository.loadById(id);
+        UserDTO userDTO = modelMapper.map(user,UserDTO.class);
+        return userDTO;
+    }
 }

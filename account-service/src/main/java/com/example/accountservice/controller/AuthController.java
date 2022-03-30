@@ -108,27 +108,27 @@ public class AuthController {
         }
 
     }
-    @PostMapping("/fogot")
-    public BaseResponse resetPassByEmail(@Valid @RequestBody FogotPassForm fogotPassForm){
-        try {
-            authService.resetPassByMail(fogotPassForm);
-            return new ResponseData("");
-        }catch (Exception e){
-            return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    @PostMapping("/reset")
-    public BaseResponse resetPasswordByEmailToken(@Valid @RequestBody ResetPassForm resetPassForm) {
-        try{
-            User user =  authService.resetPassByMailToken(resetPassForm);
-            if(user == null){
-                return new ResponseEmpty();
-            }
-            return new ResponseData(user);
-        }catch (Exception e){
-            return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PostMapping("/fogot")
+//    public BaseResponse resetPassByEmail(@Valid @RequestBody FogotPassForm fogotPassForm){
+//        try {
+//            authService.resetPassByMail(fogotPassForm);
+//            return new ResponseData("");
+//        }catch (Exception e){
+//            return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+//    @PostMapping("/reset")
+//    public BaseResponse resetPasswordByEmailToken(@Valid @RequestBody ResetPassForm resetPassForm) {
+//        try{
+//            User user =  authService.resetPassByMailToken(resetPassForm);
+//            if(user == null){
+//                return new ResponseEmpty();
+//            }
+//            return new ResponseData(user);
+//        }catch (Exception e){
+//            return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 
 }
