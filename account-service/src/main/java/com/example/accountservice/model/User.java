@@ -43,6 +43,19 @@ public class User{
     private String password;
 
 
+    private Boolean activate = true;
+
+    public Boolean getActivate() {
+        return activate;
+    }
+
+    public void setActivate(Boolean activate) {
+        this.activate = activate;
+    }
+
+    public void setResettoken(String resettoken) {
+        this.resettoken = resettoken;
+    }
 
     private String resettoken;
 

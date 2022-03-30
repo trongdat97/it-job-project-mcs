@@ -112,29 +112,7 @@ public class AuthServiceImpl implements AuthService {
         return user;
     }
 
-    @Override
-    public void setRole(SetRoleForm setRoleForm) {
-        User user = userRepository.loadByUsername(setRoleForm.getUsername());
-        Set<String> strRoles = setRoleForm.getRoles();
-        Set<Role> roles = new HashSet<>();
-        strRoles.forEach(role -> {
-            switch(role) {
-                case "pm":
-                    Role modRole = roleRepository.findByName(RoleName.ROLE_PM)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(modRole);
-                    break;
-                case "user":
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(userRole);
-            }
-        });
-        user.setRoles(roles);
-        userRepository.save(user);
 
-
-    }
 
 //    @Override
 //    public void resetPassByMail(FogotPassForm fogotPassForm) {

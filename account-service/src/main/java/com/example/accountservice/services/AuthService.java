@@ -14,7 +14,7 @@ public interface AuthService {
     BaseResponse forgotPass(FogotPassForm fogotPassForm);
     BaseResponse resetPass(ResetPassForm resetPassForm);
     User getUserFromJWT(HttpServletRequest request);
-    void setRole(SetRoleForm setRoleForm);
+
 //    void resetPassByMail(FogotPassForm fogotPassForm);
 //    User resetPassByMailToken(ResetPassForm resetPassForm);
 }
