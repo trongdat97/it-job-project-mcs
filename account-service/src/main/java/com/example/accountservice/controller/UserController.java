@@ -3,6 +3,7 @@ package com.example.accountservice.controller;
 import com.example.accountservice.dto.UserDTO;
 import com.example.accountservice.dto.request.FogotPassForm;
 import com.example.accountservice.dto.request.ResetPassForm;
+import com.example.accountservice.dto.request.UpdateUserForm;
 import com.example.accountservice.model.User;
 import com.example.accountservice.services.EmailService;
 import com.example.accountservice.services.UserService;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
@@ -28,7 +29,7 @@ public class UserController {
     @Autowired
     EmailService emailService;
 
-    @GetMapping("/user")
+    @GetMapping("/")
     public BaseResponse getAllUser(){
         try{
             List<UserDTO> userDTOs = userService.getAllUser();
@@ -40,7 +41,7 @@ public class UserController {
             return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public BaseResponse getUserById(@PathVariable("id") Long id) {
         try {
             UserDTO userDTO = userService.getUserById(id);
@@ -52,7 +53,7 @@ public class UserController {
             return new ResponseError("Error"+ e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("/user/fogot")
+    @PostMapping("/fogot")
     public BaseResponse fogotPass(@Valid @RequestBody FogotPassForm fogotPassForm){
         try {
             String data = emailService.resetPassByMail(fogotPassForm);
@@ -65,7 +66,7 @@ public class UserController {
             return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("/user/reset")
+    @PostMapping("/reset")
     public BaseResponse resetPasswordByEmailToken(@Valid @RequestBody ResetPassForm resetPassForm) {
         try{
             User user =  emailService.resetPassByMailToken(resetPassForm);
@@ -77,6 +78,19 @@ public class UserController {
             return new ResponseError("Error " + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/update/{id}")
+    public BaseResponse updateUser(@Valid @PathVariable("id") Long id, @RequestBody UpdateUserForm updateUserForm){
+        try {
+            UserDTO userDTO = userService.updateUser(id,updateUserForm);
+            if(userDTO==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(userDTO);
+        }catch (Exception e
+        ){
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
+    }
 
 }

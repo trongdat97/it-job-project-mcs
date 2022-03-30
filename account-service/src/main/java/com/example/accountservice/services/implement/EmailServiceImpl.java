@@ -30,12 +30,6 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     UserRepository userRepository;
 
-//    @Override
-//    public JsonNode sendEmail(String email, String resettoken) throws UnirestException {
-//        JsonNode jsonNode = sendSimpleMessage(email,resettoken);
-//        return jsonNode;
-//    }
-
     public JsonNode sendSimpleMessage(String email, String resettoken) throws UnirestException {
 
         HttpResponse<com.mashape.unirest.http.JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + API_BASE_URL + "/messages")

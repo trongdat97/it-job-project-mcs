@@ -1,6 +1,7 @@
 package com.example.accountservice.services.implement;
 
 import com.example.accountservice.dto.UserDTO;
+import com.example.accountservice.dto.request.UpdateUserForm;
 import com.example.accountservice.model.User;
 
 import com.example.accountservice.repository.UserRepository;
@@ -33,6 +34,19 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(Long id) {
         User user = userRepository.loadById(id);
         UserDTO userDTO = modelMapper.map(user,UserDTO.class);
+        return userDTO;
+    }
+
+    @Override
+    public UserDTO updateUser(Long id, UpdateUserForm updateUserForm) {
+        User user = userRepository.loadById(id);
+        UserDTO userDTO = new UserDTO();
+        if(user != null){
+            user.setName(updateUserForm.getName());
+            user.setAvatar(updateUserForm.getAvatar());
+            userRepository.save(user);
+        }
+        userDTO = modelMapper.map(user,UserDTO.class);
         return userDTO;
     }
 }

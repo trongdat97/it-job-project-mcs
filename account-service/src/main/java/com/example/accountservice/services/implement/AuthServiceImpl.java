@@ -112,29 +112,4 @@ public class AuthServiceImpl implements AuthService {
         return user;
     }
 
-
-
-//    @Override
-//    public void resetPassByMail(FogotPassForm fogotPassForm) {
-//        String email = fogotPassForm.getEmail();
-//        User user = userRepository.loadByEmail(email);
-//        String token = UUID.randomUUID().toString();
-//        user.setResettonken(token);
-//        userRepository.save(user);
-//        //send mail with reset token
-//
-//
-//    }
-//
-//    @Override
-//    public User resetPassByMailToken(ResetPassForm resetPassForm) {
-//        User user = userRepository.loadByToKen(resetPassForm.getToken());
-//        if (user != null) {
-//            user.setPassword(encoder.encode(resetPassForm.getPassword()));
-//            userRepository.save(user);
-//            return user;
-//        } else {
-//            return null;
-//        }
-//    }
 }

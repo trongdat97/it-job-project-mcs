@@ -42,6 +42,15 @@ public class User{
     @Size(min=6, max = 100)
     private String password;
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    private String avatar;
 
     private Boolean activate = true;
 
