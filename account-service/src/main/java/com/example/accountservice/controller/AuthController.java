@@ -1,5 +1,6 @@
 package com.example.accountservice.controller;
 
+import com.example.accountservice.dto.UserDTO;
 import com.example.accountservice.dto.request.*;
 import com.example.accountservice.dto.response.JwtResponse;
 import com.example.accountservice.model.User;
@@ -96,6 +97,19 @@ public class AuthController {
 
         }catch (Exception e){
             return new ResponseError("Error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @RequestMapping("/getInfoUser")
+    public BaseResponse getInfoUser(HttpServletRequest request){
+        try {
+            UserDTO userJWT = authService.getUserFromJWT2(request);
+
+            if(userJWT == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(userJWT);
+        }catch (Exception e){
+            return new ResponseError("Error "+ e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

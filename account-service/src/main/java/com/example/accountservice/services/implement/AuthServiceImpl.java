@@ -1,5 +1,6 @@
 package com.example.accountservice.services.implement;
 
+import com.example.accountservice.dto.UserDTO;
 import com.example.accountservice.jwt.JwtProvider;
 import com.example.accountservice.dto.request.*;
 import com.example.accountservice.dto.response.JwtResponse;
@@ -9,6 +10,7 @@ import com.example.accountservice.repository.UserRepository;
 import com.example.accountservice.services.AuthService;
 import com.example.common.Response.BaseResponse;
 import io.jsonwebtoken.Jwts;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +35,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     PasswordEncoder encoder;
+
+    ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     JwtProvider jwtProvider;
@@ -77,6 +81,19 @@ public class AuthServiceImpl implements AuthService {
 
         return userRepository.save(user);
     }
+    @Override
+    public UserDTO getUserFromJWT2(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        String authToken = authHeader.replace("Bearer ","");
+
+        String username = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(authToken)
+                .getBody().getSubject();
+        User user = userRepository.loadByUsername(username);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return userDTO;
+    }
 
     @Override
     public User changePass(ChangePassForm changePassForm, User userJWT) {
@@ -111,5 +128,6 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.loadByUsername(username);
         return user;
     }
+
 
 }

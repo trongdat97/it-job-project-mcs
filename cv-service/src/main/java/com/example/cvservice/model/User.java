@@ -1,6 +1,4 @@
-package com.example.apigateway.model;
-
-
+package com.example.cvservice.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +17,6 @@ public class User{
     @NotBlank
     @Size(min=3, max = 50)
     private String username;
-
 
     @NotBlank
     @Size(max = 50)
@@ -55,7 +52,6 @@ public class User{
     }
 
     private String resettoken;
-
 
     private Set<Role> roles = new HashSet<>();
 

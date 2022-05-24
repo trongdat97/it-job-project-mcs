@@ -15,6 +15,8 @@ public interface JobRepository extends MongoRepository<Job,String>{
 
 //    @Query(value="{'id' : $0}", delete = true)
 //    public void deleteById (String id);
+    List<Job> getAllJob();
+
     List<Job> findByJobName(String name);
     void deleteById(String id);
     @Query("{ 'id' : ?0 }")

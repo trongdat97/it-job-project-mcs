@@ -16,4 +16,11 @@ public interface CvRepository extends MongoRepository<CV,String> {
 
     @Query("{ 'idJob' : ?0 }")
     List<CV> findByIdJob(String id);
+
+    @Query("{'activate' : true}")
+    CV findDefaultCV(Boolean activate);
+
+    @Query("{'username': ?0}")
+    List<CV> loadCVOfUser(String username);
+
 }

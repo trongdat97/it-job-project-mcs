@@ -1,8 +1,11 @@
 package com.example.cvservice.service.implement;
 
+import com.example.common.Response.BaseResponse;
 import com.example.cvservice.dto.CvDTO;
+import com.example.cvservice.dto.UserDTO;
 import com.example.cvservice.dto.request.CvCreateRequest;
 import com.example.cvservice.dto.request.CvUpdateRequest;
+import com.example.cvservice.feignclient.UserClient;
 import com.example.cvservice.model.CV;
 import com.example.cvservice.repository.CvRepository;
 import com.example.cvservice.service.CvService;
@@ -11,6 +14,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
@@ -23,9 +27,10 @@ public class CvServiceImpl implements CvService {
 
     ModelMapper modelMapper = new ModelMapper();
 
+
     @Override
     public CvDTO createCV(CvCreateRequest cvCreateRequest) {
-        CV cv;
+        CV cv = new CV();
         CvDTO cvDTO;
         cv = modelMapper.map(cvCreateRequest,CV.class);
         cvRepository.save(cv);
@@ -81,4 +86,12 @@ public class CvServiceImpl implements CvService {
         CV cv = cvOptional.get();
         cvRepository.delete(cv);
     }
+
+    @Override
+    public void setDefaultCV(String id) {
+        Optional<CV> cvOptional = cvRepository.findById(id);
+        CV cv = cvOptional.get();
+
+    }
+
 }
