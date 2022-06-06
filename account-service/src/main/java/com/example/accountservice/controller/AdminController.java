@@ -1,6 +1,7 @@
 package com.example.accountservice.controller;
 
 import com.example.accountservice.dto.request.SetRoleForm;
+import com.example.accountservice.model.JobDTO;
 import com.example.accountservice.services.AdminService;
 import com.example.common.Response.BaseResponse;
 import com.example.common.Response.ResponseData;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -43,6 +45,15 @@ public class AdminController {
             return new ResponseData("Restore User Successfully");
         }catch (Exception e){
             return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/jobsadmin")
+    public BaseResponse getJob(){
+        try{
+            BaseResponse<List<JobDTO>> jobs= adminService.getUser();
+            return new ResponseData(jobs);
+        }catch (Exception e){
+            return new ResponseError("error" +e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

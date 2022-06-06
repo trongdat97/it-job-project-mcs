@@ -38,4 +38,8 @@ public class JobUpdateRequest {
     @NotBlank
     @Max(500)
     private String JobDetail;
+    private String JobType;
+    private Integer lowestSalary;
+    private Integer highestSalary;
+    private Integer experience;
 }

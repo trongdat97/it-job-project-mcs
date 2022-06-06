@@ -1,18 +1,11 @@
-package com.example.jobsservice.dto;
-
-
-import org.springframework.data.mongodb.core.mapping.Field;
+package com.example.accountservice.model;
 
 import java.util.Date;
 
 public class JobDTO {
-//    @Field("id")
+    //    @Field("id")
     private String id;
     private String JobName;
-    private String JobType;
-    private Integer lowestSalary;
-    private Integer highestSalary;
-    private Integer experience;
     private String CompanyName;
     private String CompanyAddress;
     private String CompanyLogo;
@@ -25,11 +18,7 @@ public class JobDTO {
     }
 
     public JobDTO(String id, String jobName, String companyName, String companyAddress, String companyLogo,
-               Date createAt, Date timeExpired, String jobDetail, String jobType, Integer lowestSalary, Integer highestSalary, Integer experience) {
-        this.JobType = jobType;
-        this.lowestSalary = lowestSalary;
-        this.highestSalary = highestSalary;
-        this.experience =  experience;
+                  Date createAt, Date timeExpired, String jobDetail) {
         this.id = id;
         this.JobName = jobName;
         this.CompanyName = companyName;
@@ -38,38 +27,6 @@ public class JobDTO {
         this.CreateAt = createAt;
         this.TimeExpired = timeExpired;
         this.JobDetail = jobDetail;
-    }
-
-    public String getJobType() {
-        return JobType;
-    }
-
-    public void setJobType(String jobType) {
-        JobType = jobType;
-    }
-
-    public Integer getLowestSalary() {
-        return lowestSalary;
-    }
-
-    public void setLowestSalary(Integer lowestSalary) {
-        this.lowestSalary = lowestSalary;
-    }
-
-    public Integer getHighestSalary() {
-        return highestSalary;
-    }
-
-    public void setHighestSalary(Integer highestSalary) {
-        this.highestSalary = highestSalary;
-    }
-
-    public Integer getExperience() {
-        return experience;
-    }
-
-    public void setExperience(Integer experience) {
-        this.experience = experience;
     }
 
     public String getId() {

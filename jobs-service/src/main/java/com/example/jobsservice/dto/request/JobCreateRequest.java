@@ -7,6 +7,42 @@ import java.util.Date;
 
 public class JobCreateRequest {
     private String id;
+    private String JobType;
+    private Integer lowestSalary;
+    private Integer highestSalary;
+    private Integer experience;
+
+    public String getJobType() {
+        return JobType;
+    }
+
+    public void setJobType(String jobType) {
+        JobType = jobType;
+    }
+
+    public Integer getLowestSalary() {
+        return lowestSalary;
+    }
+
+    public void setLowestSalary(Integer lowestSalary) {
+        this.lowestSalary = lowestSalary;
+    }
+
+    public Integer getHighestSalary() {
+        return highestSalary;
+    }
+
+    public void setHighestSalary(Integer highestSalary) {
+        this.highestSalary = highestSalary;
+    }
+
+    public Integer getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
 
     public String getId() {
         return id;

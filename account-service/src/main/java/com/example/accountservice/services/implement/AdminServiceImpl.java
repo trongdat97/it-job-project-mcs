@@ -3,6 +3,8 @@ package com.example.accountservice.services.implement;
 
 import com.example.accountservice.dto.request.SetRoleForm;
 import com.example.accountservice.dto.request.SignUpForm;
+import com.example.accountservice.feignclient.JobClient;
+import com.example.accountservice.model.JobDTO;
 import com.example.accountservice.model.Role;
 import com.example.accountservice.model.RoleName;
 import com.example.accountservice.model.User;
@@ -12,11 +14,15 @@ import com.example.accountservice.services.AdminService;
 import com.example.common.Response.BaseResponse;
 import com.example.common.Response.ResponseData;
 import com.example.common.Response.ResponseError;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -25,6 +31,11 @@ public class AdminServiceImpl implements AdminService {
     UserRepository userRepository;
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    JobClient jobClient;
+
+    ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     RoleRepository roleRepository;
@@ -90,5 +101,16 @@ public class AdminServiceImpl implements AdminService {
         user.setRoles(roles);
         userRepository.save(user);
         return new ResponseData(user);
+    }
+
+    @Override
+    public BaseResponse<List<JobDTO>> getUser() {
+        List<JobDTO> jobUserDTOs;
+        BaseResponse<List<JobDTO>> res = jobClient.getAllJob();
+        System.out.println(res);
+        List<JobDTO> jobs = res.getData();
+        Type listType = new TypeToken<List<JobDTO>>() {}.getType();
+        jobUserDTOs = modelMapper.map(jobs,listType);
+        return new ResponseData(jobUserDTOs);
     }
 }

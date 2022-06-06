@@ -13,19 +13,31 @@ public class Job {
     //@Field("id")
     private String id;
     private String JobName;
+    private String JobType;
+    private Integer lowestSalary;
+    private Integer highestSalary;
+    private Integer experience;
     private String CompanyName;
     private String CompanyAddress;
     private String CompanyLogo;
     private Date CreateAt;
     private Date TimeExpired;
     private String JobDetail;
+    private Boolean isActive = false;
+    private Boolean isDel = false;
 
     public Job(){
 
     }
 
+
     public Job(String id, String jobName, String companyName, String companyAddress, String companyLogo,
-               Date createAt, Date timeExpired, String jobDetail) {
+               Date createAt, Date timeExpired, String jobDetail, Boolean isActive, Boolean isDel, String jobType, Integer lowestSalary,
+               Integer highestSalary, Integer experience) {
+        this.JobType = jobType;
+        this.lowestSalary = lowestSalary;
+        this.highestSalary = highestSalary;
+        this.experience =  experience;
         this.id = id;
         this.JobName = jobName;
         this.CompanyName = companyName;
@@ -34,6 +46,64 @@ public class Job {
         this.CreateAt = createAt;
         this.TimeExpired = timeExpired;
         this.JobDetail = jobDetail;
+        this.isActive = isActive;
+        this.isDel = isDel;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getJobType() {
+        return JobType;
+    }
+
+    public void setJobType(String jobType) {
+        JobType = jobType;
+    }
+
+    public Integer getLowestSalary() {
+        return lowestSalary;
+    }
+
+    public void setLowestSalary(Integer lowestSalary) {
+        this.lowestSalary = lowestSalary;
+    }
+
+    public Integer getHighestSalary() {
+        return highestSalary;
+    }
+
+    public void setHighestSalary(Integer highestSalary) {
+        this.highestSalary = highestSalary;
+    }
+
+    public Integer getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Boolean getDel() {
+        return isDel;
+    }
+
+    public void setDel(Boolean del) {
+        isDel = del;
     }
 
     public String getJobId() {
@@ -99,6 +169,15 @@ public class Job {
     public void setJobDetail(String jobDetail) {
         JobDetail = jobDetail;
     }
+
+    public Boolean getIsDel(){return isDel;}
+
+    public void setIsDel(Boolean isDel){ this.isDel = isDel;}
+
+    public Boolean getIsActive(){return isActive;}
+
+    public void setIsActive(Boolean isActive){this.isActive = isActive;}
+
 
     @Override
     public String toString() {
