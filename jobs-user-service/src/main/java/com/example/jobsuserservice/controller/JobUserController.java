@@ -7,6 +7,7 @@ import com.example.common.Response.ResponseEmpty;
 import com.example.common.Response.ResponseError;
 import com.example.jobsuserservice.dto.JobUserDTO;
 import com.example.jobsuserservice.model.Job;
+import com.example.jobsuserservice.service.CvUserService;
 import com.example.jobsuserservice.service.JobUserService;
 import com.example.jobsuserservice.service.implement.JobUserServiceImpl;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,9 @@ import java.util.List;
 public class JobUserController {
     @Autowired
     private JobUserService jobUserService;
+
+    @Autowired
+    private CvUserService cvUserService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JobUserController.class);
 
@@ -57,6 +62,18 @@ public class JobUserController {
         }
 
     }
+    @GetMapping("/cvs")
+    public  BaseResponse getJobByIdUser(HttpServletRequest request){
+        try {
+            BaseResponse res = cvUserService.getCvByIdUser(request);
+            if(res == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(res);
+        }catch (Exception e){
+            return new ResponseError("error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
+    }
 
 }

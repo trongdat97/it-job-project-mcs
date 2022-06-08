@@ -5,11 +5,14 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpServletRequest;
+
 @FeignClient("cv-service")
 public interface CvClient {
     @GetMapping("/cv")
     public BaseResponse getAllCv();
     @GetMapping("/cv/{id}")
     public BaseResponse getCV(@PathVariable("id") String id);
-
+    @GetMapping("/cvs")
+    public BaseResponse getAllCvByIdUser(HttpServletRequest request);
 }

@@ -23,4 +23,7 @@ public interface CvRepository extends MongoRepository<CV,String> {
     @Query("{'username': ?0}")
     List<CV> loadCVOfUser(String username);
 
+    @Query("{'idUser': ?0}")
+    List<CV> loadCVById(Long id);
+
 }

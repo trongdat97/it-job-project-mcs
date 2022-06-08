@@ -16,5 +16,6 @@ public interface CvService {
     public CvDTO updateCV(String id,CvUpdateRequest cvUpdateRequest);
     public void deleteCV(String id);
     public void setDefaultCV(String id);
+    public List<CvDTO> getCvByIdUser(HttpServletRequest request);
 
 }

@@ -100,4 +100,14 @@ public class CvServiceImpl implements CvService {
 
     }
 
+    @Override
+    public List<CvDTO> getCvByIdUser(HttpServletRequest request) {
+        UserDTO userDTO = userService.getAllInfoUser(request);
+        Long id = userDTO.getId();
+        List<CV> cvs = cvRepository.loadCVById(id);
+        Type listType = new TypeToken<List<CvDTO>>() {}.getType();
+        List<CvDTO> cvDTOs = modelMapper.map(cvs,listType);
+        return cvDTOs;
+    }
+
 }

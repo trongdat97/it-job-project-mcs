@@ -96,4 +96,16 @@ public class CvController {
             return new ResponseError("Error "+ e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/cvs")
+    public BaseResponse getAllCvByIdUser(HttpServletRequest request){
+        try{
+            List<CvDTO> cvs = cvService.getCvByIdUser(request);
+            if(cvs==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(cvs);
+        }catch (Exception e){
+            return new ResponseError("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
