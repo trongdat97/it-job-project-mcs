@@ -1,34 +1,11 @@
-package com.example.cvservice.model;
+package com.example.jobsuserservice.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "cv")
-public class CV {
-    @Id
+public class CvDTO {
     private String id;
     private String name;
     private String url;
     private Boolean activate;
     private String idJob;
-    private String username;
-    private Long idUser;
-
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getId() {
         return id;

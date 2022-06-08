@@ -9,6 +9,7 @@ import com.example.cvservice.feignclient.UserClient;
 import com.example.cvservice.model.CV;
 import com.example.cvservice.repository.CvRepository;
 import com.example.cvservice.service.CvService;
+import com.example.cvservice.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,19 @@ public class CvServiceImpl implements CvService {
     @Autowired
     CvRepository cvRepository;
 
+
     ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    UserService userService;
 
 
     @Override
-    public CvDTO createCV(CvCreateRequest cvCreateRequest) {
+    public CvDTO createCV(CvCreateRequest cvCreateRequest, HttpServletRequest request) {
         CV cv = new CV();
         CvDTO cvDTO;
         cv = modelMapper.map(cvCreateRequest,CV.class);
+        UserDTO userDTO = userService.getAllInfoUser(request);
+        cv.setIdUser(userService.getIdUser(userDTO));
         cvRepository.save(cv);
         cvDTO = modelMapper.map(cv,CvDTO.class);
         return cvDTO;

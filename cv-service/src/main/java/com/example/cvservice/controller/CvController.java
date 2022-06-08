@@ -52,9 +52,9 @@ public class CvController {
         }
     }
     @PostMapping("/cv")
-    public BaseResponse createCv(@Valid @RequestBody CvCreateRequest cvCreateRequest){
+    public BaseResponse createCv(@Valid @RequestBody CvCreateRequest cvCreateRequest, HttpServletRequest request){
         try{
-            CvDTO cvDTO = cvService.createCV(cvCreateRequest);
+            CvDTO cvDTO = cvService.createCV(cvCreateRequest, request);
             if(cvDTO == null){
                 return new ResponseEmpty();
             }

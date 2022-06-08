@@ -100,7 +100,7 @@ public class AuthController {
         }
     }
     @RequestMapping("/getInfoUser")
-    public BaseResponse getInfoUser(HttpServletRequest request){
+    public BaseResponse<UserDTO> getInfoUser(HttpServletRequest request){
         try {
             UserDTO userJWT = authService.getUserFromJWT2(request);
 

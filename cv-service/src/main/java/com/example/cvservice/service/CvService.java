@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface CvService {
-    public CvDTO createCV(CvCreateRequest cvCreateRequest);
+    public CvDTO createCV(CvCreateRequest cvCreateRequest, HttpServletRequest request);
     public List<CvDTO> getAllCV();
     public CvDTO getCvById(String id);
     public List<CvDTO> getCVbyIdCompany(String id);

@@ -9,6 +9,15 @@ public class CvDTO {
     private String url;
     private Boolean activate;
     private String idJob;
+    private Long idUser;
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
 
     public String getId() {
         return id;

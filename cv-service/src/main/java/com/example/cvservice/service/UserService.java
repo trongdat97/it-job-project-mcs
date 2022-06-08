@@ -6,4 +6,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserService {
     UserDTO getAllInfoUser(HttpServletRequest request);
+    public Long getIdUser(UserDTO userDTO);
 }

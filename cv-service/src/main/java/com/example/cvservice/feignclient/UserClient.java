@@ -19,4 +19,7 @@ public interface UserClient{
 
     @GetMapping("/auth/getInfoUser")
     public BaseResponse<UserDTO> getInfoUser(String request);
+
+    @GetMapping("/auth/user/{name}")
+    public BaseResponse<UserDTO> getUserByName(@Valid @PathVariable("name") String name);
 }
