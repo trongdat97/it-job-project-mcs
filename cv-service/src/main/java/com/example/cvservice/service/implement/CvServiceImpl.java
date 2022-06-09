@@ -109,5 +109,12 @@ public class CvServiceImpl implements CvService {
         List<CvDTO> cvDTOs = modelMapper.map(cvs,listType);
         return cvDTOs;
     }
+    @Override
+    public List<CvDTO> getCvByIdUser2(Long id){
+        List<CV> cvs = cvRepository.loadCVById(id);
+        Type listType = new TypeToken<List<CvDTO>>() {}.getType();
+        List<CvDTO> cvDTOs = modelMapper.map(cvs,listType);
+        return cvDTOs;
+    }
 
 }

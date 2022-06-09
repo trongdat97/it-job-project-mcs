@@ -108,4 +108,16 @@ public class CvController {
             return new ResponseError("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/cvsid/{id}")
+    public BaseResponse getAllCvByIdUser2(@PathVariable("id") Long id){
+        try{
+            List<CvDTO> cvs = cvService.getCvByIdUser2(id);
+            if(cvs==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(cvs);
+        }catch (Exception e){
+            return new ResponseError("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

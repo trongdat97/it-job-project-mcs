@@ -5,6 +5,7 @@ import com.example.common.Response.BaseResponse;
 import com.example.common.Response.ResponseData;
 import com.example.common.Response.ResponseEmpty;
 import com.example.common.Response.ResponseError;
+import com.example.jobsuserservice.dto.CvDTO;
 import com.example.jobsuserservice.dto.JobUserDTO;
 import com.example.jobsuserservice.model.Job;
 import com.example.jobsuserservice.service.CvUserService;
@@ -63,13 +64,13 @@ public class JobUserController {
 
     }
     @GetMapping("/cvs")
-    public  BaseResponse getJobByIdUser(HttpServletRequest request){
+    public  BaseResponse getCVByIdUser(HttpServletRequest request){
         try {
-            BaseResponse res = cvUserService.getCvByIdUser(request);
-            if(res == null){
+            List<CvDTO> cvDTOs = cvUserService.getCvByIdUser(request);
+            if(cvDTOs == null){
                 return new ResponseEmpty();
             }
-            return new ResponseData(res);
+            return new ResponseData(cvDTOs);
         }catch (Exception e){
             return new ResponseError("error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
         }

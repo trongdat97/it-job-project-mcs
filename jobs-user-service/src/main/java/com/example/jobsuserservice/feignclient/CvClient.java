@@ -15,4 +15,6 @@ public interface CvClient {
     public BaseResponse getCV(@PathVariable("id") String id);
     @GetMapping("/cvs")
     public BaseResponse getAllCvByIdUser(HttpServletRequest request);
+    @GetMapping("/cvsid/{id}")
+    public BaseResponse getAllCvByIdUser2(@PathVariable("id") Long id);
 }
