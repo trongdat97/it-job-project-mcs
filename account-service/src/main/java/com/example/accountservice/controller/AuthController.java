@@ -3,10 +3,12 @@ package com.example.accountservice.controller;
 import com.example.accountservice.dto.UserDTO;
 import com.example.accountservice.dto.request.*;
 import com.example.accountservice.dto.response.JwtResponse;
+import com.example.accountservice.model.Role;
 import com.example.accountservice.model.User;
 import com.example.accountservice.repository.RoleRepository;
 import com.example.accountservice.repository.UserRepository;
 import com.example.accountservice.jwt.JwtProvider;
+import com.example.accountservice.services.AdminService;
 import com.example.accountservice.services.AuthService;
 import com.example.accountservice.services.EmailService;
 import com.example.accountservice.services.implement.UserServiceImpl;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import java.util.Set;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -39,7 +42,8 @@ public class AuthController {
 
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    AdminService adminService;
     @Autowired
     RoleRepository roleRepository;
 
@@ -62,6 +66,8 @@ public class AuthController {
             if(jwt == null){
                 return new ResponseEmpty();
             }
+            Set<Role> roles = adminService.getRole(loginRequest);
+            jwt.setRoles(roles);
             return new ResponseData(jwt);
         }catch (Exception e){
             return new ResponseError("Error"+e,HttpStatus.INTERNAL_SERVER_ERROR);

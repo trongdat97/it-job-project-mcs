@@ -91,7 +91,7 @@ public class JobController {
         }
 
     }
-    @DeleteMapping("/jobs/{id}")
+    @PostMapping("/jobsdel/{id}")
 //    @RequestMapping(value = "/jobs/{id}", method = {RequestMethod.DELETE,RequestMethod.GET})
     public BaseResponse deleteJob(@PathVariable("id") String id){
         try{

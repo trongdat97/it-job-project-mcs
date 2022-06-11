@@ -1,6 +1,7 @@
 package com.example.accountservice.services.implement;
 
 
+import com.example.accountservice.dto.request.LoginForm;
 import com.example.accountservice.dto.request.SetRoleForm;
 import com.example.accountservice.dto.request.SignUpForm;
 import com.example.accountservice.feignclient.JobClient;
@@ -113,4 +114,13 @@ public class AdminServiceImpl implements AdminService {
         jobUserDTOs = modelMapper.map(jobs,listType);
         return new ResponseData(jobUserDTOs);
     }
+
+    @Override
+    public Set<Role> getRole(LoginForm loginForm) {
+        User user = userRepository.loadByUsername(loginForm.getUsername());
+        Set<Role> roles = user.getRoles();
+        return roles;
+    }
+
+
 }

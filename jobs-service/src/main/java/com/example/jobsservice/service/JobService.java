@@ -15,4 +15,5 @@ public interface JobService {
     public void deleteJob(String id);
     public List<JobDTO> searchJob(String name);
  //   public List<JobDTO> searchByTitle(String name);
+    public List<JobDTO> getJobDeleted();
 }

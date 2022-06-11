@@ -1,10 +1,14 @@
 package com.example.accountservice.controller;
 
+import com.example.accountservice.dto.request.LoginForm;
 import com.example.accountservice.dto.request.SetRoleForm;
+import com.example.accountservice.dto.request.SignUpForm;
 import com.example.accountservice.model.JobDTO;
+import com.example.accountservice.model.Role;
 import com.example.accountservice.services.AdminService;
 import com.example.common.Response.BaseResponse;
 import com.example.common.Response.ResponseData;
+import com.example.common.Response.ResponseEmpty;
 import com.example.common.Response.ResponseError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/auth/admin")
 public class AdminController {
     @Autowired
     AdminService adminService;
@@ -54,6 +59,19 @@ public class AdminController {
             return new ResponseData(jobs);
         }catch (Exception e){
             return new ResponseError("error" +e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/getrole")
+    public BaseResponse getRole(@Valid @RequestBody LoginForm loginForm){
+        try {
+            Set<Role> roles = adminService.getRole(loginForm);
+            if (roles == null){
+                return new ResponseEmpty();
+            }else {
+                return new ResponseData(roles);
+            }
+        }catch (Exception e){
+            return new ResponseError("error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

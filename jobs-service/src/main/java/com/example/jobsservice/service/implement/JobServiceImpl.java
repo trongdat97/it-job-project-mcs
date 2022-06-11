@@ -34,12 +34,25 @@ public class JobServiceImpl implements JobService {
         jobDTO = modelMapper.map(job,JobDTO.class);
         return jobDTO;
     }
+//    @Override
+//    public List<JobDTO> searchJob(String name){
+//        Optional<Job> jobs = jobRepository.findByJobName2(name);
+//        Type listType = new TypeToken<List<JobDTO>>() {}.getType();
+//        List<JobDTO> jobDTOs = modelMapper.map(jobs, listType);
+//        return jobDTOs;
+//    }
     @Override
     public List<JobDTO> searchJob(String name){
-        List<Job> jobs = jobRepository.findByJobName2(name);
-        Type listType = new TypeToken<List<JobDTO>>() {}.getType();
-        List<JobDTO> jobDTOs = modelMapper.map(jobs, listType);
-        return jobDTOs;
+        List<JobDTO> jobDTOs = getAllJob();
+        List<JobDTO> jobDTOSSreach = new ArrayList<>();
+        for (JobDTO job: jobDTOs
+             ) {
+            if (job.getJobName() == name){
+                System.out.println(job.getJobName());
+                jobDTOSSreach.add(job);
+            }
+        }
+        return jobDTOSSreach;
     }
     @Override
     public List<JobDTO> getAllJob(){
@@ -80,7 +93,16 @@ public class JobServiceImpl implements JobService {
     public void deleteJob(String id) {
         Optional<Job> job = jobRepository.findById(id);
         Job jobData = job.get();
-        jobRepository.delete(jobData);
+        jobData.setDel(true);
+        jobRepository.save(jobData);
+    }
+
+    @Override
+    public List<JobDTO> getJobDeleted() {
+        Boolean isdel = true;
+        Optional<Job> job = jobRepository.getAllJobDeleted(isdel);
+        Job jobData = job.get();
+        return null;
     }
 
 

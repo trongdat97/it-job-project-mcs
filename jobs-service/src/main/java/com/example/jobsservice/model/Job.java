@@ -58,6 +58,14 @@ public class Job {
         this.id = id;
     }
 
+    public String getJobName() {
+        return JobName;
+    }
+
+    public void setJobName(String jobName) {
+        JobName = jobName;
+    }
+
     public String getJobType() {
         return JobType;
     }
@@ -88,38 +96,6 @@ public class Job {
 
     public void setExperience(Integer experience) {
         this.experience = experience;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public Boolean getDel() {
-        return isDel;
-    }
-
-    public void setDel(Boolean del) {
-        isDel = del;
-    }
-
-    public String getJobId() {
-        return id;
-    }
-
-    public void setJobId(String jobId) {
-        id = id;
-    }
-
-    public String getJobName() {
-        return JobName;
-    }
-
-    public void setJobName(String jobName) {
-        JobName = jobName;
     }
 
     public String getCompanyName() {
@@ -170,14 +146,21 @@ public class Job {
         JobDetail = jobDetail;
     }
 
-    public Boolean getIsDel(){return isDel;}
+    public Boolean getActive() {
+        return isActive;
+    }
 
-    public void setIsDel(Boolean isDel){ this.isDel = isDel;}
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
 
-    public Boolean getIsActive(){return isActive;}
+    public Boolean getDel() {
+        return isDel;
+    }
 
-    public void setIsActive(Boolean isActive){this.isActive = isActive;}
-
+    public void setDel(Boolean del) {
+        isDel = del;
+    }
 
     @Override
     public String toString() {

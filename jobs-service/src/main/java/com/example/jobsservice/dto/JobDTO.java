@@ -19,13 +19,23 @@ public class JobDTO {
     private Date CreateAt;
     private Date TimeExpired;
     private String JobDetail;
+    private Boolean isDel = false;
+
+    public Boolean getDel() {
+        return isDel;
+    }
+
+    public void setDel(Boolean del) {
+        isDel = del;
+    }
 
     public JobDTO(){
 
     }
 
     public JobDTO(String id, String jobName, String companyName, String companyAddress, String companyLogo,
-               Date createAt, Date timeExpired, String jobDetail, String jobType, Integer lowestSalary, Integer highestSalary, Integer experience) {
+               Date createAt, Date timeExpired, String jobDetail, String jobType,
+                  Integer lowestSalary, Integer highestSalary, Integer experience, Boolean isDel) {
         this.JobType = jobType;
         this.lowestSalary = lowestSalary;
         this.highestSalary = highestSalary;
@@ -38,6 +48,7 @@ public class JobDTO {
         this.CreateAt = createAt;
         this.TimeExpired = timeExpired;
         this.JobDetail = jobDetail;
+        this.isDel = isDel;
     }
 
     public String getJobType() {

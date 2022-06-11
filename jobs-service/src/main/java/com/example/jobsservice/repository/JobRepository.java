@@ -21,5 +21,8 @@ public interface JobRepository extends MongoRepository<Job,String>{
     @Query("{ 'id' : ?0 }")
     Optional<Job> findById(String id);
     @Query("{ 'JobName' : ?0 }")
-    List<Job> findByJobName2(String name);
+    Optional<Job> findByJobName2(String name);
+
+    @Query("{ 'isDel' } : ?0")
+    Optional<Job> getAllJobDeleted(Boolean isdel);
 }
