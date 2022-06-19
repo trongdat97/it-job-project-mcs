@@ -3,8 +3,7 @@ package com.example.jobsuserservice.feignclient;
 
 import com.example.common.Response.BaseResponse;
 
-import com.example.jobsuserservice.model.Job;
-import com.example.jobsuserservice.model.JobDTO;
+import com.example.jobsuserservice.dto.response.JobDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

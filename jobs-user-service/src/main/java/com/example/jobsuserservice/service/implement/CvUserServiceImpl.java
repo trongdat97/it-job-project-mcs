@@ -1,7 +1,7 @@
 package com.example.jobsuserservice.service.implement;
 
 import com.example.common.Response.BaseResponse;
-import com.example.jobsuserservice.dto.CvDTO;
+import com.example.jobsuserservice.dto.response.CvDTO;
 import com.example.jobsuserservice.dto.UserDTO;
 import com.example.jobsuserservice.feignclient.CvClient;
 import com.example.jobsuserservice.feignclient.UserClient;

@@ -1,11 +1,10 @@
 package com.example.jobsuserservice.service;
 
-import com.example.jobsuserservice.dto.JobUserDTO;
-import com.example.jobsuserservice.model.Job;
+import com.example.jobsuserservice.dto.request.ApplyJobForm;
+import com.example.jobsuserservice.model.JobUserDTO;
 
-import java.util.List;
 
-public interface JobUserService {
-    public List<JobUserDTO> getAllJob();
-    public JobUserDTO getJobById(String id);
+
+public interface JobUserService{
+    JobUserDTO AppLyJob(ApplyJobForm applyJobForm);
 }

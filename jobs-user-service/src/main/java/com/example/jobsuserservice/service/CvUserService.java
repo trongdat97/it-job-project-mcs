@@ -1,7 +1,6 @@
 package com.example.jobsuserservice.service;
 
-import com.example.common.Response.BaseResponse;
-import com.example.jobsuserservice.dto.CvDTO;
+import com.example.jobsuserservice.dto.response.CvDTO;
 import com.example.jobsuserservice.dto.UserDTO;
 
 import javax.servlet.http.HttpServletRequest;

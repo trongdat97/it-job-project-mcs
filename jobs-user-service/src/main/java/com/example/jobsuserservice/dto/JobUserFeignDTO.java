@@ -1,10 +1,47 @@
-package com.example.jobsuserservice.model;
+package com.example.jobsuserservice.dto;
 
 import java.util.Date;
 
-public class JobDTO {
-    private String id;
+public class JobUserFeignDTO {
+    private String JobId;
     private String JobName;
+    private String JobType;
+    private Integer lowestSalary;
+
+    public String getJobType() {
+        return JobType;
+    }
+
+    public void setJobType(String jobType) {
+        JobType = jobType;
+    }
+
+    public Integer getLowestSalary() {
+        return lowestSalary;
+    }
+
+    public void setLowestSalary(Integer lowestSalary) {
+        this.lowestSalary = lowestSalary;
+    }
+
+    public Integer getHighestSalary() {
+        return highestSalary;
+    }
+
+    public void setHighestSalary(Integer highestSalary) {
+        this.highestSalary = highestSalary;
+    }
+
+    public Integer getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
+
+    private Integer highestSalary;
+    private Integer experience;
     private String CompanyName;
     private String CompanyAddress;
     private String CompanyLogo;
@@ -12,28 +49,12 @@ public class JobDTO {
     private Date TimeExpired;
     private String JobDetail;
 
-    public JobDTO(){
-
+    public String getJobId() {
+        return JobId;
     }
 
-    public JobDTO(String id, String jobName, String companyName, String companyAddress, String companyLogo,
-                  Date createAt, Date timeExpired, String jobDetail) {
-        this.id = id;
-        this.JobName = jobName;
-        this.CompanyName = companyName;
-        this.CompanyAddress = companyAddress;
-        this.CompanyLogo = companyLogo;
-        this.CreateAt = createAt;
-        this.TimeExpired = timeExpired;
-        this.JobDetail = jobDetail;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setJobId(String jobId) {
+        JobId = jobId;
     }
 
     public String getJobName() {

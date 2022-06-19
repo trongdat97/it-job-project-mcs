@@ -1,4 +1,4 @@
-package com.example.jobsuserservice.dto;
+package com.example.jobsuserservice.dto.response;
 
 public class CvDTO {
     private String id;

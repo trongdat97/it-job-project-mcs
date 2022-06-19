@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth/usersv")
 public class UserController {
     @Autowired
     UserService userService;
@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     EmailService emailService;
 
-    @GetMapping("/")
+    @GetMapping("/getall")
     public BaseResponse getAllUser(){
         try{
             List<UserDTO> userDTOs = userService.getAllUser();

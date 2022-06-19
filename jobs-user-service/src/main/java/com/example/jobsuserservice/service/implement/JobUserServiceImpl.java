@@ -1,42 +1,31 @@
 package com.example.jobsuserservice.service.implement;
 
-import com.example.common.Response.BaseResponse;
-import com.example.jobsuserservice.dto.JobUserDTO;
-import com.example.jobsuserservice.feignclient.JobClient;
-import com.example.jobsuserservice.model.Job;
-import com.example.jobsuserservice.model.JobDTO;
+import com.example.jobsservice.dto.JobDTO;
+import com.example.jobsservice.model.Job;
+import com.example.jobsuserservice.dto.request.ApplyJobForm;
+import com.example.jobsuserservice.model.JobUser;
+import com.example.jobsuserservice.model.JobUserDTO;
+import com.example.jobsuserservice.repository.JobUserRepository;
 import com.example.jobsuserservice.service.JobUserService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
-@Service
-public class JobUserServiceImpl implements JobUserService {
-    @Autowired
-    JobClient jobClient;
-
-    ModelMapper modelMapper = new ModelMapper();
-    @Override
-    public List<JobUserDTO> getAllJob() {
-        List<JobUserDTO> jobUserDTOs;
-        BaseResponse<List<JobDTO>> res = jobClient.getAllJob();
-        List<JobDTO> jobs = res.getData();
-        Type listType = new TypeToken<List<JobUserDTO>>() {}.getType();
-        jobUserDTOs = modelMapper.map(jobs,listType);
-        return jobUserDTOs;
-    }
-
-    @Override
-    public JobUserDTO getJobById(String id) {
-        BaseResponse<JobDTO> res = jobClient.getById(id);
-        JobDTO job = res.getData();
-        JobUserDTO jobUserDTO;
-        jobUserDTO = modelMapper.map(job,JobUserDTO.class);
-        return jobUserDTO;
-    }
-
-}
+//
+//@Service
+//public class JobUserServiceImpl implements JobUserService {
+//
+//    @Autowired
+//    JobUserRepository jobUserRepository;
+//
+//    ModelMapper modelMapper = new ModelMapper();
+//
+//    @Override
+//    public JobUserDTO AppLyJob(ApplyJobForm applyJobForm) {
+//        JobUser jobUser;
+//        JobUserDTO jobUserDTO;
+//        jobUser = modelMapper.map(applyJobForm,JobUser.class);
+//        jobUserRepository.save(jobUser);
+//        jobUserDTO = modelMapper.map(jobUser,JobUserDTO.class);
+//        return jobUserDTO;
+//    }
+//}
