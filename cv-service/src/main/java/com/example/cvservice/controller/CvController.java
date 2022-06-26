@@ -7,12 +7,13 @@ import com.example.cvservice.dto.CvDTO;
 import com.example.cvservice.dto.UserDTO;
 import com.example.cvservice.dto.request.CvCreateRequest;
 import com.example.cvservice.dto.request.CvUpdateRequest;
-import com.example.cvservice.model.CV;
+import com.example.cvservice.model.FileDB;
 import com.example.cvservice.service.CvService;
 import com.example.cvservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -120,4 +121,5 @@ public class CvController {
             return new ResponseError("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
