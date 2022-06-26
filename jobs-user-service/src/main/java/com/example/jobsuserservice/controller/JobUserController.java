@@ -32,8 +32,8 @@ public class JobUserController {
     @Autowired
     private CvUserService cvUserService;
 
-//    @Autowired
-//    private JobUserService jobUserService;
+    @Autowired
+    private JobUserService jobUserService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JobUserController.class);
 
@@ -81,17 +81,60 @@ public class JobUserController {
         }
 
     }
-//    @PostMapping("/applyjob")
-//    public BaseResponse applyJob(@Valid @RequestBody ApplyJobForm applyJobForm){
-//        try {
-//            JobUserDTO jobUserDTO = jobUserService.AppLyJob(applyJobForm);
-//            if(jobUserDTO == null){
-//                return new ResponseEmpty();
-//            }
-//            return new ResponseData(jobUserDTO);
-//        }catch (Exception e){
-//            return new ResponseError("errpr"+e, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PostMapping("/applyjob")
+    public BaseResponse applyJob(@Valid @RequestBody ApplyJobForm applyJobForm){
+        try {
+            JobUserDTO jobUserDTO = jobUserService.AppLyJob(applyJobForm);
+            if(jobUserDTO == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jobUserDTO);
+        }catch (Exception e){
+            return new ResponseError("errpr"+e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getjobuser/{id}")
+    public BaseResponse getJobUserById(@PathVariable("id") Long id ){
+        try {
+            JobUserDTO jobUserDTO = jobUserService.getJobUserById(id);
+            if(jobUserDTO ==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jobUserDTO);
+        }catch (Exception e){
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("acceptcv/{id}")
+    public BaseResponse acceptCv(@PathVariable("id") Long id){
+        try {
+            JobUserDTO jobUserDTO = jobUserService.acceptCv(id);
+            if(jobUserDTO == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jobUserDTO);
+        }catch (Exception e){
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("rejectcv/{id}")
+    public BaseResponse rejectCv(@PathVariable("id") Long id){
+        try {
+            JobUserDTO jobUserDTO = jobUserService.rejectCv(id);
+            if(jobUserDTO == null){
+                return new ResponseEmpty();
+
+            }
+            return new ResponseData(jobUserDTO);
+        }catch (Exception e){
+            return new ResponseError("Error" + e , HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Autowired
+    public void setJobUserService(JobUserService jobUserService){
+        this.jobUserService = jobUserService;
+    }
 
 }

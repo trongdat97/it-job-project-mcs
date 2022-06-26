@@ -105,6 +105,16 @@ public class AuthServiceImpl implements AuthService {
             return null;
         }
     }
+    @Override
+    public User changePass2(ChangePassForm changePassForm, String username){
+        User user = userRepository.loadByUsername(username);
+        if(encoder.matches(changePassForm.getPassword(),user.getPassword())){
+            user.setPassword(encoder.encode(changePassForm.getPassword()));
+            return userRepository.save(user);
+        }else {
+            return null;
+        }
+    }
 
     @Override
     public BaseResponse forgotPass(FogotPassForm fogotPassForm) {

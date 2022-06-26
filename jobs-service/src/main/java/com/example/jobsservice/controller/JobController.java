@@ -48,7 +48,7 @@ public class JobController {
             }
             return new ResponseData<>(jobDTOs);
         }catch (Exception e){
-            return new ResponseError("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseError("Error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -61,7 +61,7 @@ public class JobController {
             }
             return new ResponseData(jobData);
         }catch (Exception e){
-            return new ResponseError("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -75,7 +75,7 @@ public class JobController {
             return new ResponseData(newJob);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseError("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseError("Error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @PostMapping("/jobs/{id}")
@@ -87,7 +87,7 @@ public class JobController {
             }
             return new ResponseData(data);
         }catch (Exception e){
-            return new ResponseError("error",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseError("error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -98,7 +98,7 @@ public class JobController {
             jobService.deleteJob(id);
             return new ResponseData(id);
         }catch (Exception e){
-            return new ResponseError("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseError("Error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @GetMapping("/jobssearch/{name}")
@@ -110,7 +110,19 @@ public class JobController {
             }
             return new ResponseData<>(jobs);
         }catch (Exception e){
-            return new ResponseError("error",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseError("error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/jobs/findjob/{username}")
+    public BaseResponse findJobByUserName(@PathVariable("username") String username){
+        try{
+            List<JobDTO> jobDTOS = jobService.findJobByUserName(username);
+            if(jobDTOS.isEmpty()){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jobDTOS);
+        }catch (Exception e){
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -92,5 +92,17 @@ public class UserController {
         }
 
     }
+    @GetMapping("get/{username}")
+    public BaseResponse getUserByUsername(@PathVariable("username") String username){
+        try{
+            UserDTO userDTO = userService.getUserByUserName(username);
+            if(userDTO==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(userDTO);
+        }catch (Exception e){
+            return new ResponseError("Error"+e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

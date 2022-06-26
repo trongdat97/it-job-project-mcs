@@ -67,6 +67,8 @@ public class AuthController {
                 return new ResponseEmpty();
             }
             Set<Role> roles = adminService.getRole(loginRequest);
+            String username = loginRequest.getUsername();
+            jwt.setUsername(username);
             jwt.setRoles(roles);
             return new ResponseData(jwt);
         }catch (Exception e){
@@ -89,12 +91,12 @@ public class AuthController {
 
     }
 
-    @PostMapping("/changepass")
-    public BaseResponse changePass(@Valid @RequestBody ChangePassForm changePassForm, HttpServletRequest request){
+    @PostMapping("/changepass/{username}")
+    public BaseResponse changePass(@PathVariable("username") String username, @Valid @RequestBody ChangePassForm changePassForm){
 
         try {
-            User userJWT = authService.getUserFromJWT(request);
-            User user = authService.changePass(changePassForm,userJWT);
+
+            User user = authService.changePass2(changePassForm,username);
             if(user == null){
                 return new ResponseEmpty();
             }

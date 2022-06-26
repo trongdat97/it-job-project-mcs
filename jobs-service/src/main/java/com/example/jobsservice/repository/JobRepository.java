@@ -25,4 +25,6 @@ public interface JobRepository extends MongoRepository<Job,String>{
 
     @Query("{ 'isDel' } : ?0")
     Optional<Job> getAllJobDeleted(Boolean isdel);
+
+    List<Job> findJobsByUsername(String username);
 }

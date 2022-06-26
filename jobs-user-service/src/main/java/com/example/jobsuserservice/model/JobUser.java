@@ -2,49 +2,64 @@ package com.example.jobsuserservice.model;
 
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+
+@Entity
 public class JobUser {
+    @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Long idUser;
-    String idJob;
-    String idCv;
-    Boolean isAccept = false;
+    private Long id;
+
+    private Long userId;
+    private String jobId;
+    private String cvId;
+    private Boolean isAccept = false;
+    private Integer status = 1;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public String getCvId() {
+        return cvId;
+    }
+
+    public void setCvId(String cvId) {
+        this.cvId = cvId;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getIdJob() {
-        return idJob;
-    }
-
-    public void setIdJob(String idJob) {
-        this.idJob = idJob;
-    }
-
-    public String getIdCv() {
-        return idCv;
-    }
-
-    public void setIdCv(String idCv) {
-        this.idCv = idCv;
-    }
 
     public Boolean getAccept() {
         return isAccept;

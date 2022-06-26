@@ -105,5 +105,13 @@ public class JobServiceImpl implements JobService {
         return null;
     }
 
+    @Override
+    public List<JobDTO> findJobByUserName(String username){
+        List<Job> jobs = jobRepository.findJobsByUsername(username);
+        Type listType = new TypeToken<List<JobDTO>>() {}.getType();
+        List<JobDTO> jobDTOs = modelMapper.map(jobs, listType);
+        return jobDTOs;
+    }
+
 
 }

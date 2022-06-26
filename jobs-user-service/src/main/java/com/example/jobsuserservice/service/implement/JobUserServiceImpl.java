@@ -10,22 +10,51 @@ import com.example.jobsuserservice.service.JobUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//
-//@Service
-//public class JobUserServiceImpl implements JobUserService {
-//
-//    @Autowired
-//    JobUserRepository jobUserRepository;
-//
-//    ModelMapper modelMapper = new ModelMapper();
-//
-//    @Override
-//    public JobUserDTO AppLyJob(ApplyJobForm applyJobForm) {
-//        JobUser jobUser;
-//        JobUserDTO jobUserDTO;
-//        jobUser = modelMapper.map(applyJobForm,JobUser.class);
-//        jobUserRepository.save(jobUser);
-//        jobUserDTO = modelMapper.map(jobUser,JobUserDTO.class);
-//        return jobUserDTO;
-//    }
-//}
+
+@Service
+public class JobUserServiceImpl implements JobUserService {
+
+    JobUserRepository jobUserRepository;
+
+    ModelMapper modelMapper = new ModelMapper();
+
+    @Override
+    public JobUserDTO AppLyJob(ApplyJobForm applyJobForm) {
+        JobUser jobUser;
+        JobUserDTO jobUserDTO;
+        jobUser = modelMapper.map(applyJobForm,JobUser.class);
+        jobUserRepository.save(jobUser);
+        jobUserDTO = modelMapper.map(jobUser,JobUserDTO.class);
+        return jobUserDTO;
+    }
+    // status 1 = pending, status 2 = accept, status 3 = reject
+    @Override
+    public JobUserDTO acceptCv(Long id) {
+        JobUser jobUser = jobUserRepository.loadById(id);
+        jobUser.setStatus(2);
+        jobUserRepository.save(jobUser);
+        JobUserDTO jobUserDTO = modelMapper.map(jobUser,JobUserDTO.class);
+        return jobUserDTO;
+    }
+    // status 1 = pending, status 2 = accept, status 3 = reject
+    @Override
+    public JobUserDTO rejectCv(Long id) {
+        JobUser jobUser = jobUserRepository.loadById(id);
+        jobUser.setStatus(3);
+        jobUserRepository.save(jobUser);
+        JobUserDTO jobUserDTO = modelMapper.map(jobUser,JobUserDTO.class);
+        return jobUserDTO;
+    }
+
+    @Override
+    public JobUserDTO getJobUserById(Long id) {
+        JobUser jobUser = jobUserRepository.loadById(id);
+        JobUserDTO jobUserDTO = modelMapper.map(jobUser,JobUserDTO.class);
+        return jobUserDTO;
+    }
+
+    @Autowired
+    public void setJobUserRepository (JobUserRepository jobUserRepository){
+        this.jobUserRepository = jobUserRepository;
+    }
+}

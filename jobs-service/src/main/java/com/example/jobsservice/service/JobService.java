@@ -16,4 +16,5 @@ public interface JobService {
     public List<JobDTO> searchJob(String name);
  //   public List<JobDTO> searchByTitle(String name);
     public List<JobDTO> getJobDeleted();
+    List<JobDTO> findJobByUserName(String username);
 }

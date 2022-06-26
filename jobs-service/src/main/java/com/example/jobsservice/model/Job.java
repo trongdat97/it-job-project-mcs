@@ -25,6 +25,7 @@ public class Job {
     private String JobDetail;
     private Boolean isActive = false;
     private Boolean isDel = false;
+    private String username;
 
     public Job(){
 
@@ -33,7 +34,7 @@ public class Job {
 
     public Job(String id, String jobName, String companyName, String companyAddress, String companyLogo,
                Date createAt, Date timeExpired, String jobDetail, Boolean isActive, Boolean isDel, String jobType, Integer lowestSalary,
-               Integer highestSalary, Integer experience) {
+               Integer highestSalary, Integer experience, String username) {
         this.JobType = jobType;
         this.lowestSalary = lowestSalary;
         this.highestSalary = highestSalary;
@@ -48,6 +49,15 @@ public class Job {
         this.JobDetail = jobDetail;
         this.isActive = isActive;
         this.isDel = isDel;
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getId() {

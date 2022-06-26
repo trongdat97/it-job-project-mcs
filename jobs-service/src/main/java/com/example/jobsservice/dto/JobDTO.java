@@ -20,6 +20,15 @@ public class JobDTO {
     private Date TimeExpired;
     private String JobDetail;
     private Boolean isDel = false;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Boolean getDel() {
         return isDel;
@@ -35,7 +44,7 @@ public class JobDTO {
 
     public JobDTO(String id, String jobName, String companyName, String companyAddress, String companyLogo,
                Date createAt, Date timeExpired, String jobDetail, String jobType,
-                  Integer lowestSalary, Integer highestSalary, Integer experience, Boolean isDel) {
+                  Integer lowestSalary, Integer highestSalary, Integer experience, Boolean isDel, String username) {
         this.JobType = jobType;
         this.lowestSalary = lowestSalary;
         this.highestSalary = highestSalary;
@@ -49,6 +58,7 @@ public class JobDTO {
         this.TimeExpired = timeExpired;
         this.JobDetail = jobDetail;
         this.isDel = isDel;
+        this.username = username;
     }
 
     public String getJobType() {

@@ -1,11 +1,20 @@
 package com.example.jobsuserservice.model;
 
 public class JobUserDTO {
-    Long id;
-    Long idUser;
-    String idJob;
-    String idCv;
-    Boolean isAccept;
+    private Long id;
+    private Long userId;
+    private String jobId;
+    private String cvId;
+    private Boolean isAccept;
+    private Integer status = 1;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
@@ -15,28 +24,28 @@ public class JobUserDTO {
         this.id = id;
     }
 
-    public Long getIdUser() {
-        return idUser;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getIdJob() {
-        return idJob;
+    public String getJobId() {
+        return jobId;
     }
 
-    public void setIdJob(String idJob) {
-        this.idJob = idJob;
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
-    public String getIdCv() {
-        return idCv;
+    public String getCvId() {
+        return cvId;
     }
 
-    public void setIdCv(String idCv) {
-        this.idCv = idCv;
+    public void setCvId(String cvId) {
+        this.cvId = cvId;
     }
 
     public Boolean getAccept() {

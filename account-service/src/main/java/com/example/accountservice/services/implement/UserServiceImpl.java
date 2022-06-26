@@ -49,4 +49,11 @@ public class UserServiceImpl implements UserService {
         userDTO = modelMapper.map(user,UserDTO.class);
         return userDTO;
     }
+    @Override
+    public UserDTO getUserByUserName(String username){
+        User user = userRepository.loadByUsername(username);
+        UserDTO userDTO = new UserDTO();
+        userDTO = modelMapper.map(user,UserDTO.class);
+        return userDTO;
+    }
 }
