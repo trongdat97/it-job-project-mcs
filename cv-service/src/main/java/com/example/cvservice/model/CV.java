@@ -1,25 +1,65 @@
 package com.example.cvservice.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.bson.types.Binary;
+import org.hibernate.annotations.NaturalId;
 
-@Document(collection = "cv")
+
+import javax.persistence.*;
+
+@Entity
 public class CV {
     @Id
-    private String id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
     private String name;
     private String url;
-    private Boolean activate;
-    private String idJob;
+    private Boolean activate = false;
+    private String jobId;
     private String username;
-    private Long idUser;
+    private Long userId;
+    private Binary cvfile;
+    private String type;
+    @Lob
+    private byte[] data;
 
-    public Long getIdUser() {
-        return idUser;
+    public byte[] getData() {
+        return data;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Binary getCvfile() {
+        return cvfile;
+    }
+
+    public void setCvfile(Binary cvfile) {
+        this.cvfile = cvfile;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -30,11 +70,11 @@ public class CV {
         this.username = username;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,11 +102,5 @@ public class CV {
         this.activate = activate;
     }
 
-    public String getIdJob() {
-        return idJob;
-    }
 
-    public void setIdJob(String idJob) {
-        this.idJob = idJob;
-    }
 }

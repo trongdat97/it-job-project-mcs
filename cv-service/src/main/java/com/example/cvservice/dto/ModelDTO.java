@@ -1,33 +1,24 @@
 package com.example.cvservice.dto;
 
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 
-public class CvDTO {
+public class ModelDTO {
     @Id
-    private String id;
+    private Long id;
+    private Long userId;
     private String name;
     private String url;
     private Boolean activate;
     private String jobId;
-    private Long userId;
     private String username;
-//    private Binary cvfile;
-//
-//    public Binary getCvfile() {
-//        return cvfile;
-//    }
-//
-//    public void setCvfile(Binary cvfile) {
-//        this.cvfile = cvfile;
-//    }
 
-    public String getUsername() {
-        return username;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getUserId() {
@@ -38,12 +29,12 @@ public class CvDTO {
         this.userId = userId;
     }
 
-    public String getId() {
-        return id;
+    public String getJobId() {
+        return jobId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public String getName() {
@@ -70,11 +61,14 @@ public class CvDTO {
         this.activate = activate;
     }
 
-    public String getJobId() {
-        return jobId;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+
 }

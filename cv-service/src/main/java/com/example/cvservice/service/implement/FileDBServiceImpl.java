@@ -1,8 +1,10 @@
 package com.example.cvservice.service.implement;
 
+import com.example.cvservice.dto.ModelDTO;
 import com.example.cvservice.model.FileDB;
 import com.example.cvservice.repository.FileDBRepository;
 import com.example.cvservice.service.FileDBService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -14,14 +16,17 @@ import java.util.stream.Stream;
 @Service
 public class FileDBServiceImpl implements FileDBService {
 
+    ObjectMapper mapper = new ObjectMapper();
+
     @Autowired
     private FileDBRepository fileDBRepository;
 
     @Override
-    public FileDB store(MultipartFile file) throws IOException {
+    public FileDB store(MultipartFile file, String model) throws IOException {
+        ModelDTO modelDTO = mapper.readValue(model, ModelDTO.class);
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        FileDB image = new FileDB(fileName, file.getContentType(), file.getBytes());
-
+        FileDB image = new FileDB(fileName, file.getContentType(), file.getBytes(),"","");
+        System.out.println(modelDTO.getName());
         return fileDBRepository.save(image);
     }
 

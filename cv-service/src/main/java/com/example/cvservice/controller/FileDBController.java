@@ -32,10 +32,10 @@ public class FileDBController {
     private FileDBService fileDBService;
 
     @PostMapping("/upload")
-    public BaseResponse<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
+    public BaseResponse<MessageResponse> uploadFile(@RequestParam("model") String model,@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
-            fileDBService.store(file);
+            fileDBService.store(file, model);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return new ResponseData(new MessageResponse(message));
@@ -58,7 +58,9 @@ public class FileDBController {
                     dbFile.getName(),
                     fileDownloadUri,
                     dbFile.getType(),
-                    dbFile.getData().length);
+                    dbFile.getData().length,
+                    dbFile.getUsername(),
+                    dbFile.getJobId());
         }).collect(Collectors.toList());
 
         return new ResponseData(files);

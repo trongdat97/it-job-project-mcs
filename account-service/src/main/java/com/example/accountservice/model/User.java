@@ -53,6 +53,33 @@ public class User{
     private String avatar;
 
     private Boolean activate = true;
+    private String city;
+    private String phone;
+    private String website;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
     public Boolean getActivate() {
         return activate;

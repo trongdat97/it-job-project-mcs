@@ -5,10 +5,13 @@ import com.example.common.Response.ResponseEmpty;
 import com.example.common.Response.ResponseError;
 import com.example.cvservice.dto.CvDTO;
 import com.example.cvservice.dto.UserDTO;
+import com.example.cvservice.dto.reponse.MessageResponse;
 import com.example.cvservice.dto.request.CvCreateRequest;
 import com.example.cvservice.dto.request.CvUpdateRequest;
 import com.example.cvservice.model.FileDB;
+import com.example.cvservice.repository.FileDBRepository;
 import com.example.cvservice.service.CvService;
+import com.example.cvservice.service.FileDBService;
 import com.example.cvservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,13 @@ public class CvController {
     CvService cvService;
 
     @Autowired
+    private FileDBRepository fileDBRepository;
+
+    @Autowired
+    private FileDBService fileDBService;
+
+
+    @Autowired
     UserService userService;
 
     @GetMapping("/cv")
@@ -41,7 +51,7 @@ public class CvController {
         }
     }
     @GetMapping("/cv/{id}")
-    public BaseResponse getCvById(@PathVariable("id") String id){
+    public BaseResponse getCvById(@PathVariable("id") Long id){
         try{
             CvDTO cvDTO = cvService.getCvById(id);
             if(cvDTO==null){
@@ -65,7 +75,7 @@ public class CvController {
         }
     }
     @PostMapping("/cv/{id}")
-    public BaseResponse updateCv(@Valid @PathVariable("id") String id, @RequestBody CvUpdateRequest cvUpdateRequest){
+    public BaseResponse updateCv(@Valid @PathVariable("id") Long id, @RequestBody CvUpdateRequest cvUpdateRequest){
         try {
             CvDTO cvDTO = cvService.updateCV(id,cvUpdateRequest);
             if(cvDTO == null){
@@ -77,7 +87,7 @@ public class CvController {
         }
     }
     @DeleteMapping("/cv/{id}")
-    public BaseResponse deleteCv(@PathVariable("id") String id){
+    public BaseResponse deleteCv(@PathVariable("id") Long id){
         try {
             cvService.deleteCV(id);
             return new ResponseData("Delete Successfully");
@@ -121,5 +131,30 @@ public class CvController {
             return new ResponseError("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/cv/uploadcv")
+    public BaseResponse<MessageResponse> uploadFile(@RequestParam("model") String model, @RequestParam("file") MultipartFile file) {
+        String message = "";
+        try {
+            cvService.newCreateCv(model,file);
 
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            return new ResponseData(new MessageResponse(message));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            return new ResponseError(message, HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @GetMapping("/cv/ofuser/{username}")
+    public BaseResponse getCvOfUser(@PathVariable String username){
+        try {
+            List<CvDTO> cvDTOS =  cvService.getCvOfUser(username);
+            if(cvDTOS == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(cvDTOS);
+        }catch (Exception e){
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

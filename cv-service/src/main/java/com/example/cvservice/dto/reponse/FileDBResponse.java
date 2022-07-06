@@ -8,11 +8,17 @@ public class FileDBResponse {
     private String url;
     private String type;
     private long size;
+    private String username;
 
-    public FileDBResponse(String name, String url, String type, long size) {
+    private String jobId;
+
+    public FileDBResponse(String name, String url, String type, long size, String username, String jobId) {
         this.name = name;
         this.url = url;
         this.type = type;
+        this.username = username;
+        this.jobId = jobId;
         this.size = size;
+
     }
 }
