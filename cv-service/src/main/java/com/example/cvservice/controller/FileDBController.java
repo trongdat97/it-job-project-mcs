@@ -2,6 +2,7 @@ package com.example.cvservice.controller;
 
 import com.example.common.Response.BaseResponse;
 import com.example.common.Response.ResponseData;
+import com.example.common.Response.ResponseEmpty;
 import com.example.common.Response.ResponseError;
 import com.example.cvservice.dto.reponse.FileDBResponse;
 import com.example.cvservice.dto.reponse.MessageResponse;
@@ -21,7 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/cv/2")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class FileDBController {
 
@@ -32,7 +33,7 @@ public class FileDBController {
     private FileDBService fileDBService;
 
     @PostMapping("/upload")
-    public BaseResponse<MessageResponse> uploadFile(@RequestParam("model") String model,@RequestParam("file") MultipartFile file) {
+    public BaseResponse uploadFile(@RequestParam("model") String model,@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
             fileDBService.store(file, model);
@@ -46,32 +47,51 @@ public class FileDBController {
     }
 
     @GetMapping("/files")
-    public BaseResponse<List<FileDBResponse>> getListFiles() {
-        List<FileDBResponse> files = fileDBService.getAllFiles().map(dbFile -> {
-            String fileDownloadUri = ServletUriComponentsBuilder
-                    .fromCurrentContextPath()
-                    .path("/api/auth/files/")
-                    .path(dbFile.getId().toString())
-                    .toUriString();
+    public BaseResponse getListFiles() {
+        try {
+            List<FileDBResponse> files = fileDBService.getAllFiles2();
+            if(files==null){
+                return new ResponseEmpty();
+            }return new ResponseData(files);
+        }catch (Exception e){
+            return new ResponseError("Error"+e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-            return new FileDBResponse(
-                    dbFile.getName(),
-                    fileDownloadUri,
-                    dbFile.getType(),
-                    dbFile.getData().length,
-                    dbFile.getUsername(),
-                    dbFile.getJobId());
-        }).collect(Collectors.toList());
+    }
+    @GetMapping("/files/user/{username}")
+    public BaseResponse getListFilesByUsername(@PathVariable String username) {
+        try {
+            List<FileDBResponse> files =  fileDBService.getFilesByUsername2(username);
+            if(files==null){
+                return new ResponseEmpty();
 
-        return new ResponseData(files);
+            }return new ResponseData(files);
+        }catch (Exception e){
+            return new ResponseError("Error"+e ,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+    @GetMapping("/file/{id}")
+    public BaseResponse<FileDBResponse> getFiles(@PathVariable String id) {
+        try {
+            FileDBResponse dbResponse = fileDBService.getFilesById2(id);
+            if ( dbResponse == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(dbResponse);
+        }catch (Exception e){
+            return new ResponseError("Error"+ e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
-    @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
-        Optional<FileDB> optionalFileDB = fileDBRepository.findById(id);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + optionalFileDB.get().getName() + "\"")
-                .body(optionalFileDB.get().getData());
-    }
+//    @GetMapping("/files/{id}")
+//    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+//        Optional<FileDB> optionalFileDB = fileDBRepository.findById(id);
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + optionalFileDB.get().getName() + "\"")
+//                .body(optionalFileDB.get().getData());
+//    }
 }

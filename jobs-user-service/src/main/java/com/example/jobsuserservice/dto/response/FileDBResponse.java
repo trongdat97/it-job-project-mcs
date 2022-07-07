@@ -1,17 +1,15 @@
-package com.example.cvservice.dto.reponse;
+package com.example.jobsuserservice.dto.response;
 
-import lombok.Data;
 
-@Data
 public class FileDBResponse {
-    private String id;
-    private String name;
-    private String url;
-    private String type;
-    private long size;
-    private String username;
+    public String id;
+    public String name;
+    public String url;
+    public String type;
+    public long size;
+    public String username;
 
-    private String jobId;
+    public String jobId;
 
     public FileDBResponse(String id,String name, String url, String type, long size, String username, String jobId) {
         this.id = id;

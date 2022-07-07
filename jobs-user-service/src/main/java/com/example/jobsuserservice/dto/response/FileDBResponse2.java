@@ -1,9 +1,7 @@
-package com.example.cvservice.dto.reponse;
+package com.example.jobsuserservice.dto.response;
 
-import lombok.Data;
 
-@Data
-public class FileDBResponse {
+public class FileDBResponse2 {
     private String id;
     private String name;
     private String url;
@@ -13,7 +11,7 @@ public class FileDBResponse {
 
     private String jobId;
 
-    public FileDBResponse(String id,String name, String url, String type, long size, String username, String jobId) {
+    public FileDBResponse2(String id, String name, String url, String type, long size, String username, String jobId) {
         this.id = id;
         this.name = name;
         this.url = url;

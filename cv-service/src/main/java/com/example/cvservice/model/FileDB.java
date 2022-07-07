@@ -33,6 +33,7 @@ public class FileDB {
     private byte[] data;
 
     public FileDB(String name, String type, byte[] data, String username, String jobId) {
+
         this.name = name;
         this.type = type;
         this.data = data;

@@ -8,6 +8,7 @@ import com.example.common.Response.ResponseError;
 import com.example.jobsuserservice.dto.request.ApplyJobForm;
 import com.example.jobsuserservice.dto.response.CvDTO;
 import com.example.jobsuserservice.dto.JobUserFeignDTO;
+import com.example.jobsuserservice.dto.response.FileDBResponse;
 import com.example.jobsuserservice.model.JobUserDTO;
 import com.example.jobsuserservice.service.CvUserService;
 import com.example.jobsuserservice.service.JobUserService;
@@ -118,6 +119,33 @@ public class JobUserController {
             return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/cvuser/{username}")
+    public BaseResponse getCvByUsername(@PathVariable String username){
+        try {
+            List<FileDBResponse> fileDBResponseList = cvUserService.getCVByUsername(username);
+            if ( fileDBResponseList == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(fileDBResponseList);
+        }catch (Exception e){
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/cv/{id}")
+    public BaseResponse getCvByID(@PathVariable String id){
+        try{
+            FileDBResponse fileDBResponse = cvUserService.getCvUserById(id);
+            if(fileDBResponse == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(fileDBResponse);
+        }catch (Exception e){
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @PostMapping("rejectcv/{id}")
     public BaseResponse rejectCv(@PathVariable("id") Long id){
         try {
@@ -131,6 +159,8 @@ public class JobUserController {
             return new ResponseError("Error" + e , HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     @Autowired
     public void setJobUserService(JobUserService jobUserService){
