@@ -28,7 +28,8 @@ public class FileDBServiceImpl implements FileDBService {
     @Override
     public FileDB store(MultipartFile file, String model) throws IOException {
         ModelDTO modelDTO = mapper.readValue(model, ModelDTO.class);
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = modelDTO.getName();
         FileDB image = new FileDB(fileName, file.getContentType(), file.getBytes(),modelDTO.getUsername(),modelDTO.getJobId());
         System.out.println(modelDTO.getName());
         return fileDBRepository.save(image);

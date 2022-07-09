@@ -15,10 +15,19 @@ public class JobUser {
     private Long id;
 
     private Long userId;
+    private String username;
     private String jobId;
     private String cvId;
     private Boolean isAccept = false;
     private Integer status = 1;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Integer getStatus() {
         return status;

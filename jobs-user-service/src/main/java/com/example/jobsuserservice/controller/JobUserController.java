@@ -82,6 +82,19 @@ public class JobUserController {
         }
 
     }
+    @GetMapping("/cvapply/{id}")
+    public  BaseResponse getCVApplyJob(@PathVariable String id ){
+        try {
+            List<JobUserDTO> jobUserDTOS = jobUserService.getCvApplyJob(id);
+            if(jobUserDTOS == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jobUserDTOS);
+        }catch (Exception e){
+            return new ResponseError("error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
     @PostMapping("/applyjob")
     public BaseResponse applyJob(@Valid @RequestBody ApplyJobForm applyJobForm){
         try {

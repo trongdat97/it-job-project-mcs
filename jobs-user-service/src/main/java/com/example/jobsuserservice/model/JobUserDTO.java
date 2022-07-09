@@ -7,6 +7,15 @@ public class JobUserDTO {
     private String cvId;
     private Boolean isAccept;
     private Integer status = 1;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Integer getStatus() {
         return status;
