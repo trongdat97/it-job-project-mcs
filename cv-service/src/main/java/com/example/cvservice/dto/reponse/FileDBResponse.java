@@ -10,7 +10,6 @@ public class FileDBResponse {
     private String type;
     private long size;
     private String username;
-
     private String jobId;
 
     public FileDBResponse(String id,String name, String url, String type, long size, String username, String jobId) {
