@@ -4,6 +4,7 @@ import com.example.common.Response.BaseResponse;
 import com.example.common.Response.ResponseData;
 import com.example.common.Response.ResponseEmpty;
 import com.example.common.Response.ResponseError;
+import com.example.cvservice.dto.reponse.FileByteResponse;
 import com.example.cvservice.dto.reponse.FileDBResponse;
 import com.example.cvservice.dto.reponse.MessageResponse;
 import com.example.cvservice.model.FileDB;
@@ -86,12 +87,12 @@ public class FileDBController {
 
     }
 
-//    @GetMapping("/files/{id}")
-//    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
-//        Optional<FileDB> optionalFileDB = fileDBRepository.findById(id);
-//
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + optionalFileDB.get().getName() + "\"")
-//                .body(optionalFileDB.get().getData());
-//    }
+    @GetMapping("/files/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+        FileByteResponse file = fileDBService.getFile(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .body(file.getData());
+    }
 }

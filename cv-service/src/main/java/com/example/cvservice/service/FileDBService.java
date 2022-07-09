@@ -1,5 +1,6 @@
 package com.example.cvservice.service;
 
+import com.example.cvservice.dto.reponse.FileByteResponse;
 import com.example.cvservice.dto.reponse.FileDBResponse;
 import com.example.cvservice.model.FileDB;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ public interface FileDBService {
     List<FileDBResponse> getAllFiles2();
 
     FileDBResponse getFilesById2(String id);
+    FileByteResponse getFile(String id);
 
     List<FileDBResponse> getFilesByUsername2(String username);
 }

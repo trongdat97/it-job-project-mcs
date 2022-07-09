@@ -1,6 +1,7 @@
 package com.example.cvservice.service.implement;
 
 import com.example.cvservice.dto.ModelDTO;
+import com.example.cvservice.dto.reponse.FileByteResponse;
 import com.example.cvservice.dto.reponse.FileDBResponse;
 import com.example.cvservice.model.FileDB;
 import com.example.cvservice.repository.FileDBRepository;
@@ -87,6 +88,15 @@ public class FileDBServiceImpl implements FileDBService {
                 files.getJobId());
 
         return dbResponse;
+    }
+
+    @Override
+    public FileByteResponse getFile(String id) {
+        FileDB file = getFilesById(id);
+        FileByteResponse fileByteResponse = new FileByteResponse();
+        fileByteResponse.setData(file.getData());
+        fileByteResponse.setName(file.getName());
+        return fileByteResponse;
     }
 
 
