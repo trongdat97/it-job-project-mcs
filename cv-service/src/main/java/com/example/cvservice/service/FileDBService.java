@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public interface FileDBService {
-    FileDB store(MultipartFile file, String model) throws IOException;
+    FileDB store(MultipartFile file, String model) throws IOException, InterruptedException;
 
     Stream<FileDB> getAllFiles();
 
@@ -21,6 +21,7 @@ public interface FileDBService {
 
     FileDBResponse getFilesById2(String id);
     FileByteResponse getFile(String id);
+    String postCV(MultipartFile file) throws IOException;
 
     List<FileDBResponse> getFilesByUsername2(String username);
 }

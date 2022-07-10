@@ -9,22 +9,32 @@ import com.example.jobsuserservice.dto.response.FileDBResponse;
 import com.example.jobsuserservice.dto.response.FileDBResponse2;
 import com.example.jobsuserservice.feignclient.NewCvClient;
 import com.example.jobsuserservice.feignclient.UserClient;
+import com.example.jobsuserservice.model.JobUser;
+import com.example.jobsuserservice.model.JobUserDTO;
+import com.example.jobsuserservice.repository.JobUserRepository;
 import com.example.jobsuserservice.service.CvUserService;
 import io.jsonwebtoken.Jwts;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Type;
 import java.util.List;
 @Service
 public class CvUserServiceImpl  implements CvUserService {
     @Autowired
     NewCvClient newCvClient;
 
+
+
 //    @Autowired
 //    CvClient cvClient;
+    @Autowired
+    JobUserRepository jobUserRepository;
+
     @Autowired
     UserClient userClient;
     @Value("${jwtSecret}")
@@ -68,9 +78,10 @@ public class CvUserServiceImpl  implements CvUserService {
     public FileDBResponse getCvUserById(String id) {
         BaseResponse<FileDBResponse> res = newCvClient.getFiles(id);
         FileDBResponse fileDBResponse = res.getData();
-
         return fileDBResponse;
     }
+
+
 
     @Override
     public Long getIdUser(UserDTO userDTO){

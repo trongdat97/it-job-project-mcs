@@ -119,6 +119,19 @@ public class JobUserController {
             return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/cvapply/{id}")
+    public  BaseResponse getCVApplyJob(@PathVariable String id ){
+        try {
+            List<JobUserDTO> jobUserDTOS = jobUserService.getCvApplyJob(id);
+            if(jobUserDTOS == null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(jobUserDTOS);
+        }catch (Exception e){
+            return new ResponseError("error" + e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
     @GetMapping("/cvuser/{username}")
     public BaseResponse getCvByUsername(@PathVariable String username){
@@ -142,6 +155,20 @@ public class JobUserController {
             return new ResponseData(fileDBResponse);
         }catch (Exception e){
             return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/cvinfo/{id}")
+    public BaseResponse getInfoCvApply(@PathVariable String id){
+        try {
+            List<FileDBResponse> fileDBResponseList = jobUserService.getInfoCvApplyJob(id);
+            if(fileDBResponseList == null){
+                return new ResponseEmpty();
+
+            }
+            return new ResponseData(fileDBResponseList);
+        }catch (Exception e){
+            return new ResponseError("Error" + e , HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -13,10 +13,10 @@ public class JobUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long userId;
     private String jobId;
     private String cvId;
+    private String username;
     private Boolean isAccept = false;
     private Integer status = 1;
 
@@ -31,6 +31,14 @@ public class JobUser {
     public Long getId() {
         return id;
     }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     public Long getUserId() {
         return userId;

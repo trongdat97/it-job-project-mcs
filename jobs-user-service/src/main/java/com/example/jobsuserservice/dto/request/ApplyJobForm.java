@@ -7,6 +7,23 @@ public class ApplyJobForm {
     private String idCv;
     private Boolean isAccept = false;
     private Integer status = 1;
+    private String username;
+
+    public Boolean getAccept() {
+        return isAccept;
+    }
+
+    public void setAccept(Boolean accept) {
+        isAccept = accept;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public Long getId() {
         return id;
     }

@@ -5,8 +5,18 @@ public class JobUserDTO {
     private Long userId;
     private String jobId;
     private String cvId;
+    private String username;
     private Boolean isAccept;
     private Integer status = 1;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     public Integer getStatus() {
         return status;
