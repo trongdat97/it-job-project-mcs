@@ -46,19 +46,19 @@ public class FileDBController {
             return new ResponseError(message, HttpStatus.EXPECTATION_FAILED);
         }
     }
-    @PostMapping("/up")
-    public BaseResponse up(@RequestParam("file") MultipartFile file) {
-        String message = "";
-        try {
-            fileDBService.postCV(file);
-
-            message = "Uploaded the file successfully: " + file.getOriginalFilename();
-            return new ResponseData(new MessageResponse(message));
-        } catch (Exception e) {
-            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-            return new ResponseError(message, HttpStatus.EXPECTATION_FAILED);
-        }
-    }
+//    @PostMapping("/up")
+//    public BaseResponse up(@RequestParam("file") MultipartFile file, ) {
+//        String message = "";
+//        try {
+//            fileDBService.postCV(file);
+//
+//            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+//            return new ResponseData(new MessageResponse(message));
+//        } catch (Exception e) {
+//            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+//            return new ResponseError(message, HttpStatus.EXPECTATION_FAILED);
+//        }
+//    }
 
     @GetMapping("/files")
     public BaseResponse getListFiles() {

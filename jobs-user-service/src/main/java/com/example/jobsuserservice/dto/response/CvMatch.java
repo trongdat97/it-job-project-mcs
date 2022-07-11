@@ -1,27 +1,19 @@
 package com.example.jobsuserservice.dto.response;
 
+public class CvMatch {
 
-public class FileDBResponse {
-    public String id;
-    public String name;
-    public String url;
-    public String type;
-    public long size;
-    public String username;
-    public String jobId;
-    public String cvname;
+    private String cvskill;
+    private Float match;
+    private String jdskill;
+    private String id;
+    private String name;
+    private String url;
+    private String type;
+    private long size;
+    private String username;
+    private String jobId;
+    private String cvname;
 
-    public FileDBResponse(String id,String name, String url, String type, long size, String username, String jobId, String cvname) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-        this.type = type;
-        this.username = username;
-        this.jobId = jobId;
-        this.size = size;
-        this.cvname = cvname;
-
-    }
 
     public String getId() {
         return id;
@@ -85,5 +77,39 @@ public class FileDBResponse {
 
     public void setCvname(String cvname) {
         this.cvname = cvname;
+    }
+
+    public String getCvskill() {
+        return cvskill;
+    }
+
+    public void setCvskill(String cvskill) {
+        this.cvskill = cvskill;
+    }
+
+    public String getJdskill() {
+        return jdskill;
+    }
+
+    public void setJdskill(String jdskill) {
+        this.jdskill = jdskill;
+    }
+
+    public String getIdcv() {
+        return id;
+    }
+
+    public void setIdcv(String idcv) {
+        this.id = idcv;
+    }
+
+
+
+    public Float getMatch() {
+        return match;
+    }
+
+    public void setMatch(Float match) {
+        this.match = match;
     }
 }

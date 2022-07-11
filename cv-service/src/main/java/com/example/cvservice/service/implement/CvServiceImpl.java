@@ -135,7 +135,7 @@ public class CvServiceImpl implements CvService {
         ModelDTO modelDTO = mapper.readValue(model, ModelDTO.class);
 //        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String fileName = modelDTO.getName();
-        FileDB image = new FileDB(fileName, file.getContentType(), file.getBytes(),modelDTO.getUsername(),modelDTO.getJobId());
+        FileDB image = new FileDB(fileName, file.getContentType(), file.getBytes(),modelDTO.getUsername(),modelDTO.getJobId(),modelDTO.getCvname());
         System.out.println(modelDTO.getName());
         fileDBRepository.save(image);
         CV cv = new CV();

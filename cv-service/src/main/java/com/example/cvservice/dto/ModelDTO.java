@@ -11,7 +11,15 @@ public class ModelDTO {
     private Boolean activate;
     private String jobId;
     private String username;
+    private String cvname;
 
+    public String getCvname() {
+        return cvname;
+    }
+
+    public void setCvname(String cvname) {
+        this.cvname = cvname;
+    }
 
     public Long getId() {
         return id;

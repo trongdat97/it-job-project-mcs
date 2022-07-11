@@ -38,17 +38,18 @@ public class FileDBServiceImpl implements FileDBService {
     @Override
     public FileDB store(MultipartFile file, String model) throws IOException, InterruptedException {
         ModelDTO modelDTO = mapper.readValue(model, ModelDTO.class);
-        //String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String fileName = modelDTO.getName();
-        FileDB image = new FileDB(fileName, file.getContentType(), file.getBytes(),modelDTO.getUsername(),modelDTO.getJobId());
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        //String fileName = modelDTO.getName();
+        FileDB image = new FileDB(fileName, file.getContentType(), file.getBytes(),modelDTO.getUsername(),modelDTO.getJobId(),modelDTO.getCvname());
         fileDBRepository.save(image);
-//        System.out.println(image.getId());
-//        postCV(file);
+        System.out.println(image.getId());
+        String idcv = image.getId();
+        postCV(file,idcv);
 //        TimeUnit.SECONDS.sleep(45);
         return null;
     }
     @Override
-    public String postCV(MultipartFile file) throws IOException {
+    public String postCV(MultipartFile file, String idcv) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
@@ -62,6 +63,7 @@ public class FileDBServiceImpl implements FileDBService {
         };
 
         body.add("file", uploadFile);
+        body.add("idcv",idcv);
 
         System.out.println(file.getContentType());
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
@@ -107,7 +109,8 @@ public class FileDBServiceImpl implements FileDBService {
                     dbFile.getType(),
                     dbFile.getData().length,
                     dbFile.getUsername(),
-                    dbFile.getJobId());
+                    dbFile.getJobId(),
+                    dbFile.getCvname());
         }).collect(Collectors.toList());
         return files;
     }
@@ -128,7 +131,8 @@ public class FileDBServiceImpl implements FileDBService {
                 files.getType(),
                 files.getData().length,
                 files.getUsername(),
-                files.getJobId());
+                files.getJobId(),
+                files.getCvname());
 
         return dbResponse;
     }
@@ -159,7 +163,8 @@ public class FileDBServiceImpl implements FileDBService {
                     dbFile.getType(),
                     dbFile.getData().length,
                     dbFile.getUsername(),
-                    dbFile.getJobId());
+                    dbFile.getJobId(),
+                    dbFile.getCvname());
         }).collect(Collectors.toList());
         return files;
     }

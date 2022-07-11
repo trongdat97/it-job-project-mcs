@@ -9,6 +9,7 @@ import com.example.jobsuserservice.dto.request.ApplyJobForm;
 import com.example.jobsuserservice.dto.response.CvDTO;
 import com.example.jobsuserservice.dto.JobUserFeignDTO;
 import com.example.jobsuserservice.dto.response.FileDBResponse;
+import com.example.jobsuserservice.dto.response.FileDBResponse2;
 import com.example.jobsuserservice.model.JobUserDTO;
 import com.example.jobsuserservice.service.CvUserService;
 import com.example.jobsuserservice.service.JobUserService;
@@ -161,7 +162,7 @@ public class JobUserController {
     @GetMapping("/cvinfo/{id}")
     public BaseResponse getInfoCvApply(@PathVariable String id){
         try {
-            List<FileDBResponse> fileDBResponseList = jobUserService.getInfoCvApplyJob(id);
+            List<FileDBResponse2> fileDBResponseList = jobUserService.getInfoCvApplyJob(id);
             if(fileDBResponseList == null){
                 return new ResponseEmpty();
 

@@ -21,7 +21,7 @@ public interface FileDBService {
 
     FileDBResponse getFilesById2(String id);
     FileByteResponse getFile(String id);
-    String postCV(MultipartFile file) throws IOException;
+    String postCV(MultipartFile file, String idcv) throws IOException;
 
     List<FileDBResponse> getFilesByUsername2(String username);
 }

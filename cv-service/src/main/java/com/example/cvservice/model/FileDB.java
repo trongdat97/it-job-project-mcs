@@ -29,16 +29,19 @@ public class FileDB {
 
     private String jobId;
 
+    private String cvname;
+
     @Lob
     private byte[] data;
 
-    public FileDB(String name, String type, byte[] data, String username, String jobId) {
+    public FileDB(String name, String type, byte[] data, String username, String jobId, String cvname) {
 
         this.name = name;
         this.type = type;
         this.data = data;
         this.username = username;
         this.jobId = jobId;
+        this.cvname = cvname;
     }
 
     public FileDB() {

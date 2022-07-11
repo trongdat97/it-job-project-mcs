@@ -10,8 +10,18 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +36,40 @@ public class JobServiceImpl implements JobService {
 
 
     @Override
-    public JobDTO createJob(JobCreateRequest jobCreateRequest){
+    public JobDTO createJob(JobCreateRequest jobCreateRequest) throws IOException {
         Job job ;
         JobDTO jobDTO ;
         job = modelMapper.map(jobCreateRequest,Job.class);
         jobRepository.save(job);
+        postJD(job.getId(),job.getJobDetail());
+
         jobDTO = modelMapper.map(job,JobDTO.class);
         return jobDTO;
+    }
+
+    public String postJD(String idjob, String jd) throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+
+
+
+        body.add("idjob", idjob);
+        body.add("jd",jd);
+
+        System.out.println(idjob);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        String serverUrl = "http://192.168.42.17:5100/uploadjd";
+        RestTemplate restTemplate = new RestTemplate();
+        try{
+            ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
+        }catch (Exception e){
+            System.out.println("Response code: " + e.toString());
+        }
+
+
+        return null;
     }
 //    @Override
 //    public List<JobDTO> searchJob(String name){
