@@ -66,6 +66,19 @@ public class UserController {
             return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/updateif/{username}")
+    public BaseResponse updateif(@PathVariable String username, @RequestBody UpdateUserForm updateUserForm){
+        try {
+            UserDTO userDTO = userService.updateInfo(username,updateUserForm);
+            if(userDTO==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(userDTO);
+        } catch (Exception e) {
+
+            return new ResponseError("Error" + e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PostMapping("/reset")
     public BaseResponse resetPasswordByEmailToken(@Valid @RequestBody ResetPassForm resetPassForm) {
         try{
@@ -96,6 +109,30 @@ public class UserController {
     public BaseResponse getUserByUsername(@PathVariable("username") String username){
         try{
             UserDTO userDTO = userService.getUserByUserName(username);
+            if(userDTO==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(userDTO);
+        }catch (Exception e){
+            return new ResponseError("Error"+e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("del")
+    public BaseResponse getListDel(){
+        try{
+            List<UserDTO> userDTO = userService.getListDel();
+            if(userDTO==null){
+                return new ResponseEmpty();
+            }
+            return new ResponseData(userDTO);
+        }catch (Exception e){
+            return new ResponseError("Error"+e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("undel")
+    public BaseResponse getListUnDel(){
+        try{
+            List<UserDTO> userDTO = userService.getListUnDel();
             if(userDTO==null){
                 return new ResponseEmpty();
             }

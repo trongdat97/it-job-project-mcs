@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,4 +25,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("select u from User u where  u.id = ?1")
     User loadById(Long id);
+    @Query("select u from User u where  u.activate = false")
+    List<User> listDel();
+    @Query("select u from User u where  u.activate = true")
+    List<User> listUnDel();
 }

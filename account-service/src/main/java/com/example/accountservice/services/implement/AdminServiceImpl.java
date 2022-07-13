@@ -121,6 +121,20 @@ public class AdminServiceImpl implements AdminService {
         Set<Role> roles = user.getRoles();
         return roles;
     }
+    @Override
+    public void activate(String username){
+        User user = userRepository.loadByUsername(username);
+        user.setActivate(true);
+        userRepository.save(user);
+
+    }
+    @Override
+    public void unactivate(String username){
+        User user = userRepository.loadByUsername(username);
+        user.setActivate(false);
+        userRepository.save(user);
+
+    }
 
 
 }

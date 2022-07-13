@@ -3,7 +3,7 @@ package com.example.jobsuserservice.dto.response;
 public class CvMatch {
 
     private String cvskill;
-    private Float match;
+    private Double match;
     private String jdskill;
     private String id;
     private String name;
@@ -104,12 +104,11 @@ public class CvMatch {
     }
 
 
-
-    public Float getMatch() {
+    public Double getMatch() {
         return match;
     }
 
-    public void setMatch(Float match) {
+    public void setMatch(Double match) {
         this.match = match;
     }
 }

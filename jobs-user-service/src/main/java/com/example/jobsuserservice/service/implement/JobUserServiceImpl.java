@@ -18,6 +18,8 @@ import com.example.jobsuserservice.service.JobUserService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
@@ -135,39 +137,49 @@ public class JobUserServiceImpl implements JobUserService {
         String data = dataCvApply(id,listInfoCV);
 
         String a =  postDT(data);
-//        System.out.println(a);
-        JSONObject jsonObj = new JSONObject(a);
-        JSONObject jsonObj1 =  jsonObj.getJSONObject("cv1");
-        JSONObject jsonObj2 =  jsonObj.getJSONObject("cv2");
-        JSONObject jsonObj3 =  jsonObj.getJSONObject("cv3");
-//        JSONObject jsonObj4 =  jsonObj.getJSONObject("cv4");
-//        JSONObject jsonObj5 =  jsonObj.getJSONObject("cv5");
-//        JSONObject jsonObj6 =  jsonObj.getJSONObject("cv6");
-//        System.out.println(jsonObj.toString());
 
-//        ResponseFlask responseFlask = objectMapper.readValue(jsonObj.toString(), ResponseFlask.class);
-        CvMatch cv1 = objectMapper.readValue(jsonObj1.toString(),CvMatch.class);
-        CvMatch cv2 = objectMapper.readValue(jsonObj2.toString(),CvMatch.class);
-        CvMatch cv3 = objectMapper.readValue(jsonObj3.toString(),CvMatch.class);
-//        CvMatch cv4 = objectMapper.readValue(jsonObj3.toString(),CvMatch.class);
-//        CvMatch cv5 = objectMapper.readValue(jsonObj3.toString(),CvMatch.class);
-//        CvMatch cv6 = objectMapper.readValue(jsonObj3.toString(),CvMatch.class);
-        ArrayList<CvMatch> cvs = new ArrayList<CvMatch>();
+        JSONArray array = new JSONArray(a);
+        List<CvMatch> result = new ArrayList<>();
+        for (int j = 0; j < array.length() ; j++) {
+            JSONObject jsonObject = array.getJSONObject(j);
+            CvMatch cvMatch = new CvMatch();
+            cvMatch.setIdcv(jsonObject.getString("idcv"));
+            cvMatch.setJobId(jsonObject.getString("jobId"));
+            cvMatch.setMatch(jsonObject.getDouble("match"));
+            cvMatch.setCvskill(jsonObject.getString("cvskill"));
+            cvMatch.setJdskill(jsonObject.getString("jdskill"));
+            result.add(cvMatch);
+        }
 
-        cvs.add(cv1);
-        cvs.add(cv2);
-        cvs.add(cv3);
-//        cvs.add(cv4);
-//        cvs.add(cv5);
-//        cvs.add(cv6);
-        Integer s = cvs.size();
+        String b = "";
 
+       // JSONObject jsonObj = new JSONObject(a);
+//        jsonObj.toJSONArray()
+//        JSONObject jsonObj1 =string  jsonObj.getJSONObject("cv1");
+//        JSONObject jsonObj2 =  jsonObj.getJSONObject("cv2");
+//        JSONObject jsonObj3 =  jsonObj.getJSONObject("cv3");
+//
 
+//
+////        ResponseFlask responseFlask = objectMapper.readValue(jsonObj.toString(), ResponseFlask.class);
+//        CvMatch cv1 = objectMapper.readValue(jsonObj1.toString(),CvMatch.class);
+//        CvMatch cv2 = objectMapper.readValue(jsonObj2.toString(),CvMatch.class);
+//        CvMatch cv3 = objectMapper.readValue(jsonObj3.toString(),CvMatch.class);
+//
+//        ArrayList<CvMatch> cvs = new ArrayList<CvMatch>();
+//
+//        cvs.add(cv1);
+//        cvs.add(cv2);
+//        cvs.add(cv3);
+//
+//        Integer s = cvs.size();
+//
+//
         Type listType = new TypeToken<List<FileDBResponse2>>() {}.getType(); // Sai type
-        List<FileDBResponse2> cvs1 = modelMapper.map(cvs, listType);
-        ; // Sai type
+        List<FileDBResponse2> cvs1 = modelMapper.map(result, listType);
+//        ; // Sai type
         List<FileDBResponse2> fileDBResponse2 = modelMapper.map(listInfoCV, listType);
-
+//
         ArrayList<FileDBResponse2> listf2 = new ArrayList<FileDBResponse2>();
 
         for (FileDBResponse2 fi: fileDBResponse2
@@ -220,16 +232,8 @@ public class JobUserServiceImpl implements JobUserService {
             }
 
         }
-//        for (int j = 0; j < fileDBResponse2.size(); j++) {
-//            for (int k = 0; k < cvs; k++) {
-//
-//            }
-//
-//        }
-//        List<FileDBResponse2> combinedList = Stream.of(cvs1,fileDBResponse2)
-//                .flatMap(x -> x.stream())
-//                .collect(Collectors.toList());
 
+//        return null;
         return listf2;
     }
 

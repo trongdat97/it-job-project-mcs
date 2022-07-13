@@ -7,14 +7,37 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 public class UpdateUserForm {
-    @NotBlank
-    @Min(6)
-    @Max(20)
+
     private String name;
-    @NotBlank
-    @Min(6)
-    @Max(50)
+
     private String avatar;
+    private String city;
+    private String phone;
+    private String website;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
     public String getName() {
         return name;

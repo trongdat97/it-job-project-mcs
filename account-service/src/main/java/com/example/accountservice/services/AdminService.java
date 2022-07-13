@@ -18,5 +18,7 @@ public interface AdminService {
     BaseResponse addNewUser(SignUpForm signUpForm);
     BaseResponse<List<JobDTO>> getUser();
     Set<Role> getRole(LoginForm loginForm);
+    void activate(String username);
+    void unactivate(String username);
 
 }

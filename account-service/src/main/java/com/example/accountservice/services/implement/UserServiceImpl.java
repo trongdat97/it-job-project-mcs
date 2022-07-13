@@ -56,4 +56,36 @@ public class UserServiceImpl implements UserService {
         userDTO = modelMapper.map(user,UserDTO.class);
         return userDTO;
     }
+
+    @Override
+    public UserDTO updateInfo(String username, UpdateUserForm updateUserForm) {
+        UserDTO userDTO = getUserByUserName(username);
+        userDTO.setAvatar(updateUserForm.getAvatar());
+        userDTO.setCity(updateUserForm.getCity());
+        userDTO.setName(updateUserForm.getName());
+        userDTO.setPhone(updateUserForm.getPhone());
+        userDTO.setWebsite(updateUserForm.getWebsite());
+        User user = modelMapper.map(userDTO,User.class);
+        userRepository.save(user);
+        return userDTO;
+    }
+
+    @Override
+    public void activate(String username) {
+
+    }
+    @Override
+    public List<UserDTO> getListDel(){
+        List<User> users = userRepository.listDel();
+        Type listType = new TypeToken<List<UserDTO>>() {}.getType();
+        List<UserDTO> userDTOs = modelMapper.map(users,listType);
+        return userDTOs;
+    }
+    @Override
+    public List<UserDTO> getListUnDel(){
+        List<User> users = userRepository.listUnDel();
+        Type listType = new TypeToken<List<UserDTO>>() {}.getType();
+        List<UserDTO> userDTOs = modelMapper.map(users,listType);
+        return userDTOs;
+    }
 }

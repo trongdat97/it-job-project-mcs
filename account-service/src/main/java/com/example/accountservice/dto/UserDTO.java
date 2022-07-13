@@ -16,6 +16,52 @@ public class UserDTO {
     private String username;
 
     private String email;
+    private String avatar;
+
+    private Boolean activate;
+    private String city;
+    private String phone;
+    private String website;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Boolean getActivate() {
+        return activate;
+    }
+
+    public void setActivate(Boolean activate) {
+        this.activate = activate;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
     @JsonIgnore
     private String password;

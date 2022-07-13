@@ -11,4 +11,8 @@ public interface UserService {
     UserDTO getUserById(Long id);
     UserDTO updateUser(Long id, UpdateUserForm updateUserForm);
     UserDTO getUserByUserName(String username);
+    UserDTO updateInfo(String username, UpdateUserForm updateUserForm);
+    void activate(String username);
+    List<UserDTO> getListDel();
+    List<UserDTO> getListUnDel();
 }

@@ -24,6 +24,26 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    @PostMapping("/act/{username}")
+    public BaseResponse act(@PathVariable String username){
+        try {
+            adminService.activate(username);
+            return new ResponseData("Activate successfully");
+        }catch (Exception e){
+            return new ResponseError("Error " +e , HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @PostMapping("/unact/{username}")
+    public BaseResponse unact(@PathVariable String username){
+        try {
+            adminService.unactivate(username);
+            return new ResponseData("unActivate successfully");
+        }catch (Exception e){
+            return new ResponseError("Error " +e , HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
     @PostMapping("/setrole")
     public BaseResponse setRole(@Valid @RequestBody SetRoleForm setRoleForm){
         try {
